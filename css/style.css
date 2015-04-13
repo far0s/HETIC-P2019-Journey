@@ -1,0 +1,13 @@
+body {
+  background: url("../img/bg.png");
+  background-size:cover;
+  margin: 0; 
+  overflow: hidden;
+}
+
+.ground {
+	position:absolute;
+	z-index:500;
+	right:0px;
+	top:87vh;
+}
