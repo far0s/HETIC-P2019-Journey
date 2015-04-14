@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Les Quatre Saisons</title>
+	<title>Dev - Journey</title>
 	
 	<link rel="stylesheet" type="text/css" href="css/reset.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
@@ -10,10 +10,27 @@
 	<script src="http://web.virtuousquare.com/wp-content/themes/default/tuto/stage/js/jquery-timers.js"></script>
 </head>
 <body>
+	
 	<div class="overlay">
 		<h3>PAUSE</h3>
 		<h5>Press SPACE to continue</h5>
+		<button onclick="worldChoice=1;" class="worldselect">World 1</button>
+		<button onclick="worldChoice=2;" class="worldselect">World 2</button>
+		<button onclick="worldChoice=3;" class="worldselect">World 3</button>
+		<button onclick="worldChoice=4;" class="worldselect">World 4</button>
+
+		<button onclick="gameStart()" id="worldstart">START</button>
+		<button onclick="gameRestart()" id="worldrestart">RESTART</button>
 	</div>
+
+	<!-- <audio id="player" src="sounds/rof.mp3" autoplay loop>Veuillez mettre à jour votre navigateur !</audio>
+	<div>
+		<button onclick="document.getElementById('player').volume+=1">Demute</button>
+		<button onclick="document.getElementById('player').volume =0">Mute</button>
+	</div> -->
+
+	
+
 	<ul class="parallax">
 		<li class="parallax-layer"></li>
 	</ul>
