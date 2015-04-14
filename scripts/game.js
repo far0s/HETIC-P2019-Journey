@@ -1,4 +1,37 @@
+	jQuery.fn.marcheDrt = function() {
+		$(this).oneTime(100,function() {
+			$(this).css({backgroundPosition:'0px 0px'});
+		}).oneTime(200,function() {
+			$(this).css({backgroundPosition:'-239px 0px'});
+    }).oneTime(300,function() {
+			$(this).css({backgroundPosition:'-80px 0px'});
+		}).oneTime(400,function() {
+			$(this).css({backgroundPosition:'-160px 0px'});
+		});
+	};
+
+	jQuery.fn.mouvMarcheDrt = function(){
+		$(this).marcheDrt();
+		$(this).everyTime(400,function(){
+			$(this).marcheDrt();
+		});
+	};
+
 $(document).ready(function() {
+
+	var arret = 0;
+
+	$(document).on('keyup', function(touche) {
+		var appui = touche.keyCode;
+
+    	if(appui == 83) { // si le code de la touche est égal à 83 (S)
+        	if (arret == 1) {
+				arret = 0;
+			} else {
+				$("#perso").stopTime().mouvMarcheDrt();
+			}
+    	}
+	});
 
 /* liste des variables utiles */
 	var posRight = false; /* Par défaut le personnage ne regarde pas à droite */
@@ -25,6 +58,7 @@ $(document).ready(function() {
 	var arrowBottom = 40; /* Keycode de la fléche du bas */
 	var arrowShift = 16; /* Keycode de la touche shift */
 	var spaceBar = 32; /* Keycode de la barre d'espace */
+	var keyEscape = 27; /* Keycode de la barre d'espace */
 	var keyR = 82; /* Keycode de la touche R */
 	var keyS = 83; /* Keycode de la touche S */
 	var keyM = 77; /* Keycode de la touche M */
@@ -91,10 +125,13 @@ $(document).ready(function() {
     // WHEN TAB/WINDOW IS NOT ACTIVE, JS EXECUTION PAUSES
 	(function() {
     	var time = 999999999, // temps de jeu à définir en ms
-        	delta = 100,
+        	delta = 50,
         	tid;
     	tid = setInterval(function() {
-        	if ( window.blurred ) { return; }    
+        	if ( window.blurred ) { 
+        		$('.overlay').removeClass('hidden');
+        		return; 
+        	}    
         	time -= delta;
         	if ( time <= 0 ) {
             	clearInterval(tid);
@@ -104,7 +141,25 @@ $(document).ready(function() {
 	})();
 	window.onblur = function() { window.blurred = true; };
 	window.onfocus = function() { window.blurred = false; };
+	$('.overlay').addClass('hidden');
+	$(document).ready(function() {
+		$(document).keyup(function(touche){
+	    	var appui = touche.which || touche.keyCode;
+	    	if (appui == 32){
+	        	if ($('.overlay').hasClass('hidden')){
+					$('.overlay').removeClass('hidden');
+				} else {
+					$('.overlay').addClass('hidden');
+				} 
+				event.stopImmediatePropagation();
+	    	} 
+	    })
 	});
+});
+
+
+
+
 
 
 

@@ -7,18 +7,23 @@ body {
 }
 
 .overlay {
-	display: none;
+	display: block;
 	position: absolute;
 	z-index: 1000;
-	background-color: transparent;
+	background-color: rgba(0, 0, 0, 0.5);
 	color: white;
-	height: 100%;
+	height: 100vh;
 	width: 100%;
-	margin: 45vh auto;
+	padding: auto;
 	text-align: center;
 }
 
+.hidden {
+	display: none;
+}
+
 .overlay h3 {
+	margin-top: 40vh;
 	font-size: 4em;
 }
 
@@ -38,3 +43,15 @@ body {
 	right:0px;
 	bottom:-5px;
 }
+
+#perso {
+	position: absolute;
+	width: 76px;
+	height: 115px;  
+	background: url("http://img15.hostingpics.net/pics/427342perso.png") no-repeat;
+	transform: translateY (0);
+	top: 40%;
+	left: 70px;
+	z-index: 40;
+}
+
