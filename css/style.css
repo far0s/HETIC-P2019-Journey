@@ -1,13 +1,40 @@
 body {
-  background: url("../img/bg.png");
-  background-size:cover;
-  margin: 0; 
-  overflow: hidden;
+	margin: 0; 
+	padding: 0;
+	background-size:cover;
+	overflow: hidden;
+	width: auto; 
+}
+
+.overlay {
+	display: none;
+	position: absolute;
+	z-index: 1000;
+	background-color: transparent;
+	color: white;
+	height: 100%;
+	width: 100%;
+	margin: 45vh auto;
+	text-align: center;
+}
+
+.overlay h3 {
+	font-size: 4em;
+}
+
+.overlay h5 {
+	font-size: 2em;
+}
+
+.parallax-layer {
+	width: auto; 
+    height: 100vh; 
+    background: url("../img/bgScene1.png") repeat-x 0 bottom;
 }
 
 .ground {
 	position:absolute;
 	z-index:500;
 	right:0px;
-	top:87vh;
+	bottom:-5px;
 }

@@ -5,7 +5,7 @@ $(document).ready(function() {
 	var posLeft = true; /* Par défaut le personnage regarde à gauche */
 	var posTop = false;
 	var posBottom = false;
-	var running = false; /* Part défaut il ne court pas */
+	var running = false; /* Par défaut il ne court pas */
 	var runRight = false;
 	var runLeft = false;
 	var spriteX; /* Sert à la position du sprite */
@@ -24,6 +24,7 @@ $(document).ready(function() {
 	var arrowTop = 38; /* Keycode de la fléche du haut */
 	var arrowBottom = 40; /* Keycode de la fléche du bas */
 	var arrowShift = 16; /* Keycode de la touche shift */
+	var spaceBar = 32; /* Keycode de la barre d'espace */
 	var keyR = 82; /* Keycode de la touche R */
 	var keyS = 83; /* Keycode de la touche S */
 	var keyM = 77; /* Keycode de la touche M */
@@ -33,7 +34,7 @@ $(document).ready(function() {
 	var exp = new RegExp("^[0-9]+$","g"); /* Expression singulière pour le compteur de frames */
 	var groundRepetition; /* Pour le décor */
 	var sky, hill;
-	var vitesseGround = 500; /* gestion de la vitesse du sol en fonction du niveau (+ ajuste le temps de latence automatiquement)*/
+	var vitesseGround = 400; /* gestion de la vitesse du sol en fonction du niveau (+ ajuste le temps de latence automatiquement)*/
 	var levelLength = 10;
 	var grounds = [];
 	var intervalGame = function () {};
@@ -54,7 +55,7 @@ $(document).ready(function() {
 			$("#grounds").append( '<div class="ground" style="left: '+ translateX +'px"><img border="0" alt="animated ground" src="img/ground.png" /></div>' );
 		};
 
-		// On recupere les enfants de #grounds soit chaque bloc
+		// On recupere les enfants de #grounds soit chaque bloc .ground
 		grounds = $('#grounds').children();
 		// On lance le defilement des blocs
 		intervalGame = setInterval(loop, vitesseGround);
@@ -64,7 +65,7 @@ $(document).ready(function() {
 
 	// Rafraichit la position de chaque bloc
   	function loop() {
-  		// On parcours chaque bloc
+  		// On parcourt chaque bloc
   		grounds.each(function () {
   			// On modifie la position de chaque bloc
   			$(this).animate({
@@ -76,26 +77,44 @@ $(document).ready(function() {
         			compteurGeneration.add();
         		}
 
-        		console.log(compteurGeneration.get());
         		// Tous les 15 blocs
-        		if (compteurGeneration.get() == 10) {
+        		if (compteurGeneration.get() == 15) {
+        			console.log(compteurGeneration.get());
         			// Code a executer
         			compteurGeneration.reset();
+
         		}
         	});
   		});
     }
 
-    // Observe si l'onglet est actif ou pas
-    $.windowActive = true;
-	$.isWindowActive = function () {
-	    return $.windowActive;
-	};
-	$(window).focus(function() {
-	    $.windowActive = true;
+    // WHEN TAB/WINDOW IS NOT ACTIVE, JS EXECUTION PAUSES
+	(function() {
+    	var time = 999999999, // temps de jeu à définir en ms
+        	delta = 100,
+        	tid;
+    	tid = setInterval(function() {
+        	if ( window.blurred ) { return; }    
+        	time -= delta;
+        	if ( time <= 0 ) {
+            	clearInterval(tid);
+            	console.log('no more time !'); // alerting when there is no more time
+        	}
+    	}, delta);
+	})();
+	window.onblur = function() { window.blurred = true; };
+	window.onfocus = function() { window.blurred = false; };
 	});
-	$(window).blur(function() {
-	    $.windowActive = false;
-	});
-	// Il faut que lorsque l'onglet n'est pas actif, l'éxécution du JS s'arrête
- });
+
+
+
+// BACKGROUND SCROLLER FUNCTION //
+
+var scrollSpeed = 80;  // speed in milliseconds
+var current = 0;  // set the default position
+var direction = 'h';  // set the direction ('h' or 'v')
+function bgscroll(){
+    current -= 1; // 1 pixel row at a time
+    $('.parallax-layer').css("backgroundPosition", (direction == 'h') ? current+"px 0" : "0 " + current+"px");  // move the background with backgrond-position css properties
+}
+setInterval("bgscroll()", scrollSpeed);	 //Calls the scrolling function repeatedly
