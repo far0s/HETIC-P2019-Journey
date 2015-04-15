@@ -38,11 +38,11 @@ function gameStart() {
 		$(this).oneTime(100,function() {
 			$(this).css({backgroundPosition:'0px 0px'});
 		}).oneTime(200,function() {
-			$(this).css({backgroundPosition:'-239px 0px'});
+			$(this).css({backgroundPosition:'-267px 0px'});
 	   }).oneTime(300,function() {
-			$(this).css({backgroundPosition:'-80px 0px'});
+			$(this).css({backgroundPosition:'-133px 0px'});
 		}).oneTime(400,function() {
-			$(this).css({backgroundPosition:'-160px 0px'});
+			$(this).css({backgroundPosition:'-399px 0px'});
 		});
 	};
 
@@ -60,11 +60,11 @@ function gameStart() {
 	jQuery.fn.marcheTop = function() {
 		if(!jumping){
 			jumping = true;
-			$(this).css({backgroundPosition:'-315px 0px'}).animate({ "bottom": "+=100px" }, 2000 );
-  			$(this).css({backgroundPosition:'-395px 0px'}).animate({ "bottom": "-=100px" }, 1500 , function () {
+			$(this).css({backgroundPosition:'-528px 0px'}).animate({ "bottom": "+=200px" }, 800 );
+  			$(this).css({backgroundPosition:'-660px 0px'}).animate({ "bottom": "-=200px" }, 800 , function () {
   				$("#perso").stopTime().mouvMarcheDrt();
   			});
-  			setTimeout(land, 3501);
+  			setTimeout(land, 1601);
 		}
 	};	
 	function land() {
@@ -72,8 +72,8 @@ function gameStart() {
 	}
 
 	jQuery.fn.marcheBottom = function() {
-		$(this).css({backgroundPosition:'-474px 0px'}).animate({ "bottom": "-=0px" }, 500 );
-	  	$(this).css({backgroundPosition:'-552px 0px'}).animate({ "bottom": "+=0px" }, 500, function () {
+		$(this).css({backgroundPosition:'-793px 0px'}).animate({ "bottom": "-=0px" }, 500 );
+	  	$(this).css({backgroundPosition:'-927px 0px'}).animate({ "bottom": "+=0px" }, 500, function () {
 	  		$("#perso").stopTime().mouvMarcheDrt();
 	  	});
 	};
@@ -129,7 +129,7 @@ function gameStart() {
 
 
 		// Fonction du scroll du background
-		var scrollSpeed = 80;  // speed in milliseconds
+		var scrollSpeed = 10;  // speed in milliseconds
 		var current = 0;  // set the default position
 		var direction = 'h';  // set the direction ('h' or 'v')
 		function bgscroll(){
@@ -143,7 +143,6 @@ function gameStart() {
 			for (var i=0; i<levelLength; i++) {
 				var translateX = i * 100; // La position du block (le numero * sa width)
 				$("#grounds").append('<div class="ground" style="left: '+ translateX +'px"><img border="0" alt="animated ground" src="img/grounds/ground'+ worldChoice +'.png" /></div>');
-				// $("#perso").stopTime().mouvMarcheDrt(); // gère le run automatique | sera géré par l'écran "start"
 			};
 
 			// On recupere les enfants de #grounds soit chaque bloc .ground
@@ -170,12 +169,36 @@ function gameStart() {
 	        			compteurGeneration.add();
 	        		}
 
-	        		// Tous les 15 blocs
-	        		if (compteurGeneration.get() == 15) {
-	        			console.log(compteurGeneration.get());
+	        		// Tous les 10 blocs
+	        		
+	        		if (compteurGeneration.get() == 10) {
+	        			console.log(compteurGeneration.get() + "ème génération !");
 	        			// Code a executer
+	        			var aleaDegree = Math.round(Math.random()*5); // Determine le délai avant qu'un obstacle soit ajouté
+	        			console.log("variation = "+ aleaDegree);
+	        			var levelLength = Math.ceil($(window).width() / 100) + 2;
+	        			var i=0; i<levelLength; i++;
+						var translateX = i * 120; 
+	        			// récupérer la position de ce bloc pour ajouter un bloc html '.obstacle'
+						$("#obstacles").delay(aleaDegree*500).append('<div class="obstacle" style="bottom: '+ translateX +'px"><img border="0" alt="animated obstacle" src="img/obstacles/obstacle'+ worldChoice +'.png" /></div>');
+						var n = $("#obstacles").children().length;					
+						console.log("nombre d'obstacles = " + n);
+	        			// donner à ce bloc le même scroll que le sol (mais pas le replacement);
+	        			$('.obstacle').animate({
+	        				right: parseInt($(this).css('left')) - 100 +"px"
+	        			}, (vitesseGround*10), 'linear') 
+	        			if ((parseInt($('.obstacle').css('left')) + 100) <= 0) {
+	        				$(this).css('left', (parseInt($(window).width()) + 100) +"px");
+	        		}
+	        			// $('.obstacle').animate({
+			         //    	left: parseInt($('.obstacle').css('left')) - 100 +"px"
+			        	// }, (vitesseGround-20), 'linear', function () {
+				        // 	// Quand un bloc sort de l'écran on le repositionne a la fin
+				        // 	if ((parseInt($('.obstacle').css('left')) + 100) <= 0) {
+				        // 		$('.obstacle').css('left', (parseInt($(window).width()) + 100) +"px");
+				        // 	}
+				        // });
 	        			compteurGeneration.reset();
-
 	        		}
 	        	});
 	  		});

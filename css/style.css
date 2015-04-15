@@ -175,12 +175,18 @@ nav ul li button:hover {
 	bottom:-5px;
 }
 
+.obstacle {
+	position: absolute;
+	z-index: 501;
+	right: 0px;
+}
+
 #perso {
 	position: absolute;
-	width: 79px;
-	height: 115px;  
+	width: 128px;
+	height: 200px;  
 	background: url("../img/perso.png") no-repeat;
-	bottom: 117px;
+	bottom: 110px;
 	left: 200px;
 	z-index: 800;
 }
