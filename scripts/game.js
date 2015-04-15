@@ -5,17 +5,14 @@ $('.worldselect').click(function(event) {
 		case 1:
 			$('.parallax-layer').css('background','url("../Journey/img/worlds/bgScene1.png")');
 			$('.ground').css('background','url("../Journey/img/grounds/ground1.png")');
-			$('.parallax').css('margin-top','-100px');
 			break;
 		case 2:
 			$('.parallax-layer').css('background','url("../Journey/img/worlds/bgScene2.png")');
 			$('.ground').css('background','url("../Journey/img/grounds/ground2.png")');
-			$('.parallax').css('margin-top','-100px');
 			break;
 		case 3:
 			$('.parallax-layer').css('background','url("../Journey/img/worlds/bgScene3.png")');
 			$('.ground').css('background','url("../Journey/img/grounds/ground3.png")');
-			$('.parallax').css('margin-top','-100px');
 			break;
 		case 4:
 			$('.parallax-layer').css('background','url("../Journey/img/worlds/bgScene4.png")');
@@ -63,24 +60,13 @@ function gameStart() {
 	jQuery.fn.marcheTop = function() {
 		if(!jumping){
 			jumping = true;
-		$(this).oneTime(100,function() {
-			$(this).css({backgroundPosition:'-315px 0px'}).animate({ "bottom": "+=100px" }, 1000 );
-		}).oneTime(700,function() {
-			$(this).css({backgroundPosition:'-315px 0px'}).animate({ "bottom": "-=95px" }, 1000 );
-		}).oneTime(800,function() {
-			$(this).css({backgroundPosition:'-395px 0px'}).animate({ "bottom": "-=5px" }, 200 , function () {
-	  		$("#perso").stopTime().mouvMarcheDrt();
-	  	});
-		});	
-	  	setTimeout(land, 3501);
+			$(this).css({backgroundPosition:'-315px 0px'}).animate({ "bottom": "+=100px" }, 2000 );
+  			$(this).css({backgroundPosition:'-395px 0px'}).animate({ "bottom": "-=100px" }, 1500 , function () {
+  				$("#perso").stopTime().mouvMarcheDrt();
+  			});
+  			setTimeout(land, 3501);
 		}
-	};
-	jQuery.fn.mouvMarcheTop = function(){
-		$(this).marcheTop();
-		$(this).everyTime(800,function(){
-			$(this).marcheTop();
-		});
-	};
+	};	
 	function land() {
 		jumping = false;
 	}
@@ -233,7 +219,7 @@ function gameStart() {
 						bgscroll();
 						intervalGame = setInterval(loop, vitesseGround);
 						intervalBackground = setInterval(bgscroll, scrollSpeed);
-						// $("#perso").stopTime().mouvMarcheDrt();
+						$("#perso").stopTime().mouvMarcheDrt();
 					} 
 					event.stopImmediatePropagation();
 		    	} 
