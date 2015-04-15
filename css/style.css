@@ -6,10 +6,104 @@ body {
 	width: auto; 
 }
 
+header {
+	z-index: 1000;
+	position: fixed;
+	top:0px;
+	width: 100vw;
+	height: 50px;
+	background-color: rgba(0, 0, 0, 0.5);
+}
+
+nav {
+	padding-top: 5px;
+	width: 80vw;
+	margin: 0 auto;
+	color: #fafafa;
+}
+
+.left {
+	float: left;
+	display: inline;
+	width: 50%;
+}
+
+.left .worldselect:disabled {
+	color: #dddddd;
+}
+
+.right {
+	float: right;
+	display: inline;
+	width: 50%;
+	text-align: right;
+	padding-top: 5px;
+}
+
+.right p {
+	text-decoration: underline;
+	font-size: 20px;
+	display: inline;
+	margin-right: 10px;
+}
+
+.right li {
+	margin-right: 10px;
+	list-style: none;
+	display: inline;
+}
+
+nav ul li {
+	margin-right: 20px;
+	list-style: none;
+	display: inline;
+}
+
+nav ul li h1 {
+	font-size: 32px;
+	display: inline;
+}
+
+nav ul li h1 a {
+	color: #fafafa;
+	text-decoration: underline;
+}
+
+nav ul li h1 a:hover {
+	color: green;
+	text-decoration: underline;
+}
+
+nav ul li a {
+	text-decoration: none;
+	color: #fafafa;
+	font-size: 25px;
+}
+
+nav ul li a:hover {
+	text-decoration: underline;
+	color: green;
+	font-size: 25px;
+}
+
+nav ul li button {
+	background-color: transparent;
+	color: #fafafa;
+	border:none;
+	cursor: pointer;
+}
+
+nav ul li button:hover {
+	background-color: transparent;
+	color: green;
+	border:none;
+	cursor: pointer;
+}
+
 .overlay {
 	display: block;
 	position: absolute;
-	z-index: 5000;
+	z-index: 900;
 	background-color: rgba(0, 0, 0, 0.5);
 	color: white;
 	height: 100vh;
@@ -17,10 +111,38 @@ body {
 	padding: auto;
 	padding-bottom: 100px;
 	text-align: center;
+	-webkit-transform: translateY(0vh);
+  	-webkit-animation: overlay 3s;
+}
+
+@-webkit-keyframes overlay {
+  0% {
+    -webkit-transform: translateY(-100vh);
+    opacity: 0;
+  }
+  100% {
+   -webkit-transform: translateY(0vh);
+   opacity: 1;
+  }
 }
 
 .hidden {
-	display: none;
+	opacity: 0;
+	-webkit-transform: translateY(0vh);
+  	-webkit-animation: hiddenO 3s;
+}
+
+@-webkit-keyframes hiddenO {
+  0% {
+    -webkit-transform: translateY(0vh);
+    opacity: 1;
+  }
+ 
+  100% {
+   -webkit-transform: translateY(-100vh);
+   opacity:0;
+   display: none;
+  }
 }
 
 .overlay h3 {
@@ -33,7 +155,7 @@ body {
 }
 
 .parallax {
-	margin-top: -100px;
+	padding-bottom: -100px;
 	z-index: 400;
 }
 
@@ -57,6 +179,5 @@ body {
 	background: url("../img/perso.png") no-repeat;
 	bottom: 117px;
 	left: 200px;
-	z-index: 1001;
+	z-index: 800;
 }
-
