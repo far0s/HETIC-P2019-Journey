@@ -60,8 +60,8 @@ function gameStart() {
 	jQuery.fn.marcheTop = function() {
 		if(!jumping){
 			jumping = true;
-			$(this).css({backgroundPosition:'-528px 0px'}).animate({ "bottom": "+=250px" }, 600 );
-  			$(this).css({backgroundPosition:'-660px 0px'}).animate({ "bottom": "-=250px" }, 850 , function () {
+			$(this).css({backgroundPosition:'-528px 0px'}).animate({ "bottom": "+=550px" }, 700 );
+  			$(this).css({backgroundPosition:'-660px 0px'}).animate({ "bottom": "-=550px" }, 950 , function () {
   				$("#perso").stopTime().mouvMarcheDrt();
   			});
   			setTimeout(land, 1301);

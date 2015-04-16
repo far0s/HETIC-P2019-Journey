@@ -1,6 +1,4 @@
-// quand obs.left inférieur ou égal à perso.right, 
-//		vérifier si perso.bottom inférieur ou égal à obs.top
-//			si true : DEAD
+
 function hitboxCheck() {
 	var perso = $('#perso');
 	var persoHitbox = {
@@ -10,7 +8,7 @@ function hitboxCheck() {
 		posleft: 200,
 		posright: 328,
 	};
-	var obs = $('.obstacle');
+	var obs = $('#obsActive');
 	var obsHitbox = {
 		height: 130,
 		width: 72,
@@ -19,15 +17,19 @@ function hitboxCheck() {
 		posright: parseInt(obs.css('right')),
 		posleft: $(window).width() - 72 - parseInt(obs.css('right')),
 	};
-	if(obsHitbox.posleft <= persoHitbox.posright || obsHitbox.posright > persoHitbox.posleft) {
-		if(persoHitbox.bottom <= obs.postop){
+	// quand obs.left inférieur ou égal à perso.right, 
+	//		vérifier si perso.bottom inférieur ou égal à obs.top
+	//			si true : DEAD
+	if(obsHitbox.posleft <= persoHitbox.posright){
+		if(persoHitbox.posbottom <= obsHitbox.postop){
 			console.log('DEAD MODAFUCKA');
+		} else {
+			obs.removeAttr('id');
+			// Rajouter code de fin de jeu ici !
 		}
 	}
-	window.setTimeout(hitboxCheck, 100);
-	console.log(obsHitbox.posleft);
+	window.setTimeout(hitboxCheck, 500);
 }
-
 hitboxCheck();
 
 
