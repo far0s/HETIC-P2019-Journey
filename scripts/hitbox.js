@@ -17,7 +17,7 @@ function hitboxCheck() {
 		posbottom: 110,
 		postop: 240,
 		posright: parseInt(obs.css('right')),
-		posleft: 72 + parseInt(obs.css('right')),
+		posleft: $(window).width() - 72 - parseInt(obs.css('right')),
 	};
 	if(obsHitbox.posleft <= persoHitbox.posright || obsHitbox.posright > persoHitbox.posleft) {
 		if(persoHitbox.bottom <= obs.postop){
@@ -25,7 +25,7 @@ function hitboxCheck() {
 		}
 	}
 	window.setTimeout(hitboxCheck, 100);
-	console.log(obsHitbox);
+	console.log(obsHitbox.posleft);
 }
 
 hitboxCheck();
