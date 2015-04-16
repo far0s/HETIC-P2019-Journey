@@ -190,3 +190,7 @@ nav ul li button:hover {
 	left: 200px;
 	z-index: 800;
 }
+
+[data-hitbox=true] {
+	border: 1px solid red;
+}

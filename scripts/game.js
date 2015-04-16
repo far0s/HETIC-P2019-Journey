@@ -60,11 +60,11 @@ function gameStart() {
 	jQuery.fn.marcheTop = function() {
 		if(!jumping){
 			jumping = true;
-			$(this).css({backgroundPosition:'-528px 0px'}).animate({ "bottom": "+=200px" }, 800 );
-  			$(this).css({backgroundPosition:'-660px 0px'}).animate({ "bottom": "-=200px" }, 800 , function () {
+			$(this).css({backgroundPosition:'-528px 0px'}).animate({ "bottom": "+=250px" }, 600 );
+  			$(this).css({backgroundPosition:'-660px 0px'}).animate({ "bottom": "-=250px" }, 850 , function () {
   				$("#perso").stopTime().mouvMarcheDrt();
   			});
-  			setTimeout(land, 1601);
+  			setTimeout(land, 1301);
 		}
 	};	
 	function land() {
@@ -174,30 +174,24 @@ function gameStart() {
 	        		if (compteurGeneration.get() == 10) {
 	        			console.log(compteurGeneration.get() + "ème génération !");
 	        			// Code a executer
-	        			var aleaDegree = Math.round(Math.random()*5); // Determine le délai avant qu'un obstacle soit ajouté
-	        			console.log("variation = "+ aleaDegree);
+	        			// var aleaDegree = Math.round(Math.random()*5); // Determine le délai avant qu'un obstacle soit ajouté
+	        			// console.log("variation = "+ aleaDegree);
 	        			var levelLength = Math.ceil($(window).width() / 100) + 2;
 	        			var i=0; i<levelLength; i++;
 						var translateX = i * 120; 
 	        			// récupérer la position de ce bloc pour ajouter un bloc html '.obstacle'
-						$("#obstacles").delay(aleaDegree*500).append('<div class="obstacle" style="bottom: '+ translateX +'px"><img border="0" alt="animated obstacle" src="img/obstacles/obstacle'+ worldChoice +'.png" /></div>');
-						var n = $("#obstacles").children().length;					
+						$("#obstacles").delay((Math.round(Math.random()*5))*1000).append('<div data-hitbox="true" class="obstacle" style="bottom: '+ translateX +'px"><img border="0" alt="animated obstacle" src="img/obstacles/obstacle'+ worldChoice +'.png" /></div>');
+						var n = $("#obstacles").children().length;	
+						// var firstObstacle = $("#obstacles").firstChild();
 						console.log("nombre d'obstacles = " + n);
 	        			// donner à ce bloc le même scroll que le sol (mais pas le replacement);
 	        			$('.obstacle').animate({
 	        				right: parseInt($(this).css('left')) - 100 +"px"
-	        			}, (vitesseGround*10), 'linear') 
-	        			if ((parseInt($('.obstacle').css('left')) + 100) <= 0) {
-	        				$(this).css('left', (parseInt($(window).width()) + 100) +"px");
-	        		}
-	        			// $('.obstacle').animate({
-			         //    	left: parseInt($('.obstacle').css('left')) - 100 +"px"
-			        	// }, (vitesseGround-20), 'linear', function () {
-				        // 	// Quand un bloc sort de l'écran on le repositionne a la fin
-				        // 	if ((parseInt($('.obstacle').css('left')) + 100) <= 0) {
-				        // 		$('.obstacle').css('left', (parseInt($(window).width()) + 100) +"px");
-				        // 	}
-				        // });
+	        			}, (vitesseGround*10), 'linear');
+	        			// if(n > 3){
+	        			// 	firstObstacle.remove();
+	        			// 	console.log('obstacle removed !')
+	        			// }
 	        			compteurGeneration.reset();
 	        		}
 	        	});
