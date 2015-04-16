@@ -178,7 +178,9 @@ nav ul li button:hover {
 .obstacle {
 	position: absolute;
 	z-index: 501;
-	right: 0px;
+	right: 0;
+	width: auto;
+	height: auto;
 }
 
 #perso {

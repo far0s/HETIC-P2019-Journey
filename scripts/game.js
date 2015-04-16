@@ -180,7 +180,7 @@ function gameStart() {
 	        			var i=0; i<levelLength; i++;
 						var translateX = i * 120; 
 	        			// récupérer la position de ce bloc pour ajouter un bloc html '.obstacle'
-						$("#obstacles").delay((Math.round(Math.random()*5))*1000).append('<div data-hitbox="true" class="obstacle" style="bottom: '+ translateX +'px"><img border="0" alt="animated obstacle" src="img/obstacles/obstacle'+ worldChoice +'.png" /></div>');
+						$("#obstacles").delay((Math.round(Math.random()*5))*1000).append('<div data-hitbox="true" class="obstacle" id="obsActive" style="bottom: '+ translateX +'px"><img border="0" alt="animated obstacle" src="img/obstacles/obstacle'+ worldChoice +'.png" /></div>');
 						var n = $("#obstacles").children().length;	
 						// var firstObstacle = $("#obstacles").firstChild();
 						console.log("nombre d'obstacles = " + n);
@@ -188,10 +188,9 @@ function gameStart() {
 	        			$('.obstacle').animate({
 	        				right: parseInt($(this).css('left')) - 100 +"px"
 	        			}, (vitesseGround*10), 'linear');
-	        			// if(n > 3){
-	        			// 	firstObstacle.remove();
-	        			// 	console.log('obstacle removed !')
-	        			// }
+	        			if($('#obsActive').css('right') >$(window).width()) {
+	        				$('.obstacle #obsActive').removeAttr('id');
+	        			}
 	        			compteurGeneration.reset();
 	        		}
 	        	});
