@@ -1,6 +1,7 @@
 var worldChoice = 1; // Peut être égal à 1, 2, 3 ou 4 (1 par défaut)
-var persoChoice = 1; // Peu être égal à 1, 2 ou 3 (1 par défaut)
+var persoChoice = 1; // Peut être égal à 1, 2 ou 3 (1 par défaut)
 
+// gameStart();
 
 // Fonction de choix du monde (textures BG + GROUND)
 $('.worldselect').click(function(event) {
@@ -49,12 +50,9 @@ $('.persoselect').click(function(event) {
 
 // Fonction qui démarre le jeu  
 function gameStart() {
-	$('#site').hide();
-	$('#game').show();
-	$('.worldselect').attr('disabled', 'true');
-	$('#worldstart').attr('disabled', 'true');
-
-
+	$('#game').css('display','block');
+	$('#site').css('display','none');
+	$('header').append('<audio id="player" src="sounds/rof.mp3" autoplay loop>Veuillez mettre à jour votre navigateur !</audio>');
 
 	// Animation de la marche
 	jQuery.fn.marcheDrt = function() {
@@ -269,8 +267,55 @@ function gameStart() {
 } // END of gameStart()
 
 
-// Fonction qui redémarre le jeu
-function gameRestart() {
-	$('.worldselect').removeAttr('disabled');
-	$('#worldstart').removeAttr('disabled');
+var etatPerso = true;
+function hitboxCheck() {
+	var perso = $('#perso');
+	var persoHitbox = {
+		height: 200,
+		width: 128,
+		posbottom: parseInt(perso.css('bottom')),
+		posleft: 200,
+		posright: 328,
+	};
+	var obs = $('#obsActive');
+	var obsHitbox = {
+		height: 130,
+		width: 72,
+		posbottom: 110,
+		postop: 240,
+		posright: parseInt(obs.css('right')),
+		posleft: $(window).width() - 72 - parseInt(obs.css('right')),
+	};
+	// quand obs.left inférieur ou égal à perso.right, 
+	//		vérifier si perso.bottom inférieur ou égal à obs.top
+	//			si true : DEAD
+	if(obsHitbox.posleft <= persoHitbox.posright){
+		if(persoHitbox.posbottom <= obsHitbox.postop){
+			console.log('DEAD MODAFUCKA');
+			// Rajouter code de fin de jeu ici !
+			var etatPerso = false;
+			console.log(etatPerso);
+			window.location.href = "dead.html";
+		} else {
+			obs.removeAttr('id');
+			// Code à rajouter en cas d'évitement de l'obstacle
+		}
+	}
+	hitTimer = setTimeout(hitboxCheck, 500);
 }
+hitboxCheck();
+
+
+// if(etatPerso = false){
+// 	$('#site').css('display', 'none');
+// 	$('#game').css('display', 'none');
+// 	$('#deadScreen').css('display', 'block');
+	
+// }
+
+
+// // Fonction qui redémarre le jeu
+// function gameRestart() {
+// 	$('.worldselect').removeAttr('disabled');
+// 	$('#worldstart').removeAttr('disabled');
+// }
