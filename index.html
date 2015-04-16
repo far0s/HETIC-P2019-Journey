@@ -19,6 +19,8 @@
 					<div class="containt">
 						<h2>2d runner game</h2>
 						<h1>journey</h1>
+						<h5>Deviens une force de la nature !</h5>
+						<h6>Powered by <a href="http://www.nike.com/fr/fr_fr/c/running" target="_blank">NIKE</a></h6>
 
 						<div class="arrow">
 							<p><a href="#infos">Commencer l'aventure !</a></p>
@@ -78,7 +80,7 @@
 						</div>
 					</div>
 					<div style="clear:both"></div>
-					<p class="explanation">Pour continuer, cliquez sur un personnage, il n'y pas de différences de caractérisitques entre chacun d'eux, seulement une différence de couleur de vêtements !</p>
+					<p class="explanation">Pour continuer, cliquez sur Lagoon, Roshe ou Poison, il n'y pas de différences de caractéristiques entre chacun d'eux, seulement une différence de couleur de vêtements !</p>
 					<div style="clear:both"></div>
 					<a href="#infos" class="journey">Comment jouer</a>
 				</div>
@@ -93,7 +95,7 @@
 							<div id="w1" class="worldselect" onclick="worldChoice=1; gameStart()">
 								<div class="world">
 									<div class="champ">
-										<p class="titleW">Monde 1</p>
+										<p class="titleW">Training</p>
 										<p class="pW">Choisir ce monde</p>
 									</div>
 								</div>
@@ -103,7 +105,7 @@
 							<div id="w2" class="worldselect" onclick="worldChoice=2; gameStart()">
 								<div class="world">
 									<div class="champ">
-										<p class="titleW">Monde 2</p>
+										<p class="titleW">Flyknit</p>
 										<p class="pW">Choisir ce monde</p>
 									</div>
 								</div>
@@ -113,7 +115,7 @@
 							<div id="w3" class="worldselect" onclick="worldChoice=3; gameStart()">
 								<div class="world">
 									<div class="champ">
-										<p class="titleW">Monde 3</p>
+										<p class="titleW">Lunar</p>
 										<p class="pW">Choisir ce monde</p>
 									</div>
 								</div>
@@ -123,7 +125,7 @@
 							<div id="w4" class="worldselect" onclick="worldChoice=4; gameStart()">
 								<div class="world">
 									<div class="champ">
-										<p class="titleW">Monde 4</p>
+										<p class="titleW">Mercurial</p>
 										<p class="pW">Choisir ce monde</p>
 									</div>
 								</div>
@@ -137,31 +139,24 @@
 
 	<div id="game">
 		<header>
-			<audio id="player" src="sounds/rof.mp3" loop>Veuillez mettre à jour votre navigateur !</audio>
 			<nav>
 				<ul class="left">
-					<li><button onclick="worldChoice=1;" class="worldselect">World 1</button></li>
-					<li><button onclick="worldChoice=2;" class="worldselect">World 2</button></li>
-					<li><button onclick="worldChoice=3;" class="worldselect">World 3</button></li>
-					<li><button onclick="worldChoice=4;" class="worldselect">World 4</button></li>
-					<li><button onclick="gameStart()" id="worldstart">START</button></li>
-					<li><button onclick="gameRestart()" id="worldrestart">RESTART</button></li>
-					<li><button onclick="persoChoice=1" class="persoselect">Perso 1</button></li>
-					<li><button onclick="persoChoice=2" class="persoselect">Perso 2</button></li>
-					<li><button onclick="persoChoice=3" class="persoselect">Perso 3</button></li>
+					<li><button onclick="gameRestart()" id="worldrestart">Recommencer</button></li>
+					<li><button onclick="gameRestart()" id="worldrestart">Pause</button></li>
+					<li>|</li>
+					<li><a href="https://www.facebook.com/pages/JOURNEY-Runner/675748715863241" target="_blank"><i class="fa fa-facebook linkG"></i></a></li>
+					<li><a href="https://twitter.com/JOURNEYjs" target="_blank"><i class="fa fa-twitter linkG"></i></a></li>
 				</ul>
 				<ul class="right">
-					<li><button onclick="document.getElementById('player').volume -=0.2"><i class="fa fa-volume-down fa-2x"></i></button></li>
-					<li><button onclick="document.getElementById('player').volume+=0.2"><i class="fa fa-volume-up fa-2x"></i></button></li>
-					<li><button onclick="document.getElementById('player').play()"><i class="fa fa-play fa-2x"></i></button></li>
-					<li><button onclick="document.getElementById('player').pause()"><i class="fa fa-pause fa-2x"></i></button></li>
+					<li><button id="noSound" onclick="document.getElementById('player').volume=0"><i class="fa fa-volume-off fa-2x linkG"></i></button></li>
+					<li><button id="yesSound" onclick="document.getElementById('player').volume=1"><i class="fa fa-volume-up fa-2x linkG"></i></button></li>
 				</ul>
 			</nav>
 		</header>
 
 		<div class="overlay">
 			<h3>PAUSE</h3>
-			<h5>Press SPACE to continue</h5>
+			<h5>Appuyez sur ESPACE pour continuer</h5>
 		</div>
 
 		<ul class="parallax">
@@ -182,6 +177,5 @@
 	</div>
 
 	<script type="text/javascript" src="scripts/game.js"></script>
-	<!-- <script type="text/javascript" src="scripts/hitbox.js"></script> -->
 </body>
 </html>

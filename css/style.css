@@ -36,6 +36,7 @@ nav {
 	float: left;
 	display: inline;
 	width: 50%;
+	padding-top: 6px;
 }
 
 .left .worldselect:disabled {
@@ -47,7 +48,7 @@ nav {
 	display: inline;
 	width: 50%;
 	text-align: right;
-	padding-top: 5px;
+	  margin-top: -3px;
 }
 
 .right p {
@@ -80,8 +81,12 @@ nav ul li h1 a {
 }
 
 nav ul li h1 a:hover {
-	color: green;
+	color: #4Fa1ef;
 	text-decoration: underline;
+	-webkit-transition: all 300ms ease-in-out;
+	-ms-transition: all 300ms ease-in-out;
+	-o-transition: all 300ms ease-in-out;
+	transition: all 300ms ease-in-out;
 }
 
 nav ul li a {
@@ -92,8 +97,12 @@ nav ul li a {
 
 nav ul li a:hover {
 	text-decoration: underline;
-	color: green;
+	color: #4Fa1ef;
 	font-size: 25px;
+	-webkit-transition: all 300ms ease-in-out;
+	-ms-transition: all 300ms ease-in-out;
+	-o-transition: all 300ms ease-in-out;
+	transition: all 300ms ease-in-out;
 }
 
 nav ul li button {
@@ -101,13 +110,25 @@ nav ul li button {
 	color: #fafafa;
 	border:none;
 	cursor: pointer;
+	font-size: 20px;
+	text-transform: uppercase;
+	-webkit-transition: all 300ms ease-in-out;
+	-ms-transition: all 300ms ease-in-out;
+	-o-transition: all 300ms ease-in-out;
+	transition: all 300ms ease-in-out;
 }
 
 nav ul li button:hover {
 	background-color: transparent;
-	color: green;
+	color: #4Fa1ef;
 	border:none;
 	cursor: pointer;
+	font-size: 20px;
+	text-transform: uppercase;
+	-webkit-transition: all 300ms ease-in-out;
+	-ms-transition: all 300ms ease-in-out;
+	-o-transition: all 300ms ease-in-out;
+	transition: all 300ms ease-in-out;
 }
 
 .overlay {
@@ -123,6 +144,19 @@ nav ul li button:hover {
 	text-align: center;
 	-webkit-transform: translateY(0vh);
   	-webkit-animation: overlay 2s;
+}
+
+.overlay h3 {
+	font-size: 18px;
+	font-family: 'Open Sans', sans-serif;
+	letter-spacing: 8px;
+}
+
+.overlay h5 {
+	padding-top: 10px;
+	font-size: 12px;
+	font-family: 'Open Sans', sans-serif;
+	letter-spacing: 2px;
 }
 
 @-webkit-keyframes overlay {
@@ -175,7 +209,7 @@ nav ul li button:hover {
  	height: 140vh;
  	margin-top: -85px;
  	background-size: cover;
-    background: url("../img/worlds/bgScene1.png") repeat-x 0 bottom;
+    background: url("./img/worlds/bgScene1.png") repeat-x 0 bottom;
 }
 
 .ground {
@@ -197,11 +231,12 @@ nav ul li button:hover {
 	position: absolute;
 	width: 128px;
 	height: 200px;  
-	background: url("../img/perso1.png") no-repeat;
+	background: url("./img/perso1.png") no-repeat;
 	bottom: 110px;
 	left: 200px;
 	z-index: 800;
 }
+
 
 /* For hitbox debugging */
 

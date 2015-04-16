@@ -53,6 +53,8 @@ function gameStart() {
 	$('#game').css('display','block');
 	$('#site').css('display','none');
 	$('header').append('<audio id="player" src="sounds/rof.mp3" autoplay loop>Veuillez mettre à jour votre navigateur !</audio>');
+	// $('#noSound').onClick().remove().add('#yesSound');
+	// $('#yesSound').onClick().remove().add('#noSound');
 
 	// Animation de la marche
 	jQuery.fn.marcheDrt = function() {
@@ -104,7 +106,7 @@ function gameStart() {
 
 		// Code qui gère la touche 'S', la touche 'ESPACE' et la touche 'Flèche BAS'
 		var arret = 0;
-		$(document).on('keyup', function(touche) {
+		$(document).on('keydown', function(touche) {
 			var appui = touche.keyCode;
 	    	if(appui == 83) { // si le code de la touche est égal à 83 (S)
 	        	if (arret == 1) {
