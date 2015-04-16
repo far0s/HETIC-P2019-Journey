@@ -193,6 +193,8 @@ nav ul li button:hover {
 	z-index: 800;
 }
 
+/* For hitbox debugging */
+
 [data-hitbox=true] {
 	border: 1px solid red;
 }
