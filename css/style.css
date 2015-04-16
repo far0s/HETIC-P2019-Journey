@@ -6,6 +6,16 @@ body {
 	width: auto; 
 }
 
+
+
+#game {
+	display: none;
+}
+
+#site {
+	display: block;
+}
+
 header {
 	z-index: 1000;
 	position: fixed;
@@ -195,6 +205,6 @@ nav ul li button:hover {
 
 /* For hitbox debugging */
 
-[data-hitbox=true] {
+/*[data-hitbox=true] {
 	border: 1px solid red;
-}
+}*/

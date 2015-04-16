@@ -1,11 +1,6 @@
 var worldChoice = 1; // Peut être égal à 1, 2, 3 ou 4 (1 par défaut)
 var persoChoice = 1; // Peu être égal à 1, 2 ou 3 (1 par défaut)
 
-function site(){
-	$('#site').append('<div id="div"><div id="home"><div class="calc"><div class="containt"><h2>2d runner game</h2><h1>journey</h1><div class="arrow"><p><a href="#infos">Commencer l\'aventure !</a></p><a href="#infos"><i class="fa fa-angle-down fa-2x floating"></i></a></div></div></div></div><div id="infos"><div class="containt"><h2><a href="#home" class="linkH">Journey</a></h2><h3>Comment jouer ?</h3><p>Ce projet est né au croisement de plusieurs mondes qui seront la pour vous immerger dans un univers totalement unique et qui vous laissera rêveur.Ce Runner a donc pour objectif de vous envouter à chaque niveau a l’aide d’un décor inimitable et d’une musique qui lui est propre. Enfin, le tout vous plongera entièrement dans l’univers de JOURNEY Runner.</p><p>Journey est un jeu en 2D sur plateforme. Le but est d’esquiver les obstacles ainsi que projectiles à l’aide des quatre touches directionnels du clavier.L’utilisateur est plongé dans 4 mondes à travers lesquels il devra tenter de survivre.</p><div class="htp"><div class="key"><p><i class="fa fa-angle-up fa-4x"></i></p><p><i class="fa fa-angle-down fa-4x"></i></p></div><div class="notice"><p>Esquivez les obstacles en sautant par dessus !</p><p>Esquivez les obstacles en vous accroupissant.</p></div></div><div style="clear:both"></div><a href="#characters" class="journey">Continuer l\'aventure !</a></div></div><div id="characters"><div class="containt"><h2><a href="#home" class="linkH">Journey</a></h2><h3>Sélectionnez votre personnage</h3><div class="choose"><div id="b"><a href="#world" onclick="persoChoice=1" class="persoselect"><div class="blue"></div></a></div><div id="r"><a href="#world" onclick="persoChoice=1" class="persoselect"><div class="red"></div></a></div><div id="g"><a href="#world" onclick="persoChoice=1" class="persoselect"><div class="green"></div></a></div></div><div style="clear:both"></div><p class="explanation">Pour continuer, cliquez sur un personnage, il n\'y pas de différences de caractérisitques entre chacun d\'eux, seulement une différence de couleur de vêtements !</p><div style="clear:both"></div><a href="#infos" class="journey">Comment jouer</a></div></div><div id="world"><div class="containt"><h2><a href="#home" class="linkH">Journey</a></h2><h3>Sélectionnez votre monde</h3></div><div id="chooseW"><a href="#" class="aW"><div id="w1"><div class="world"><div class="champ"><p class="titleW">Monde 1</p><p class="pW">Choisir ce monde</p></div></div></div></a><a href="#" class="aW"><div id="w2"><div class="world"><div class="champ"><p class="titleW">Monde 2</p><p class="pW">Choisir ce monde</p></div></div></div></a><a href="#" class="aW"><div id="w3"><div class="world"><div class="champ"><p class="titleW">Monde 3</p><p class="pW">Choisir ce monde</p></div></div></div></a><a href="#" class="aW"><div id="w4"><div class="world"><div class="champ"><p class="titleW">Monde 4</p><p class="pW">Choisir ce monde</p></div></div></div></a></div></div></div>');
-}
-
-site();
 
 // Fonction de choix du monde (textures BG + GROUND)
 $('.worldselect').click(function(event) {
@@ -54,6 +49,8 @@ $('.persoselect').click(function(event) {
 
 // Fonction qui démarre le jeu  
 function gameStart() {
+	$('#site').hide();
+	$('#game').show();
 	$('.worldselect').attr('disabled', 'true');
 	$('#worldstart').attr('disabled', 'true');
 
