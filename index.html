@@ -5,11 +5,21 @@
 	<title>Dev - Journey</title>
 	<link rel="stylesheet" type="text/css" href="css/reset.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 	<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
 	<script src="http://web.virtuousquare.com/wp-content/themes/default/tuto/stage/js/jquery-timers.js"></script>
+	<script src="scripts/site/scroll.js"></script>
 </head>
 <body>
+	<div id="site">
+	<!-- PLAN 1 - added by default, removed when start button is clicked, added when restart button is clicked -->
+	</div>
+	<div id="game">
+	<!-- PLAN 2 - removed by default, added when start button is clicked -->
+	</div>
+
+<!-- 
 	<header>
 		<audio id="player" src="sounds/rof.mp3" loop>Veuillez mettre à jour votre navigateur !</audio>
 		<nav>
@@ -20,6 +30,9 @@
 				<li><button onclick="worldChoice=4;" class="worldselect">World 4</button></li>
 				<li><button onclick="gameStart()" id="worldstart">START</button></li>
 				<li><button onclick="gameRestart()" id="worldrestart">RESTART</button></li>
+				<li><button onclick="persoChoice=1" class="persoselect">Perso 1</button></li>
+				<li><button onclick="persoChoice=2" class="persoselect">Perso 2</button></li>
+				<li><button onclick="persoChoice=3" class="persoselect">Perso 3</button></li>
 			</ul>
 			<ul class="right">
 				<li><button onclick="document.getElementById('player').volume -=0.2"><i class="fa fa-volume-down fa-2x"></i></button></li>
@@ -40,7 +53,7 @@
 	</ul>
 	<div id="obstacles"></div>
 	<div id="grounds"></div>
-	<div id="perso" data-hitbox="true"></div>
+	<div id="perso" data-hitbox="true"></div> -->
 	
 	<script type="text/javascript" src="scripts/game.js"></script>
 	<script type="text/javascript" src="scripts/hitbox.js"></script>

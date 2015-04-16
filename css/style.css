@@ -187,7 +187,7 @@ nav ul li button:hover {
 	position: absolute;
 	width: 128px;
 	height: 200px;  
-	background: url("../img/perso.png") no-repeat;
+	background: url("../img/perso1.png") no-repeat;
 	bottom: 110px;
 	left: 200px;
 	z-index: 800;
