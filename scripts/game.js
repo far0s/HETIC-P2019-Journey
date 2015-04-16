@@ -53,8 +53,6 @@ function gameStart() {
 	$('#game').css('display','block');
 	$('#site').css('display','none');
 	$('header').append('<audio id="player" src="sounds/rof.mp3" autoplay loop>Veuillez mettre à jour votre navigateur !</audio>');
-	// $('#noSound').onClick().remove().add('#yesSound');
-	// $('#yesSound').onClick().remove().add('#noSound');
 
 	// Animation de la marche
 	jQuery.fn.marcheDrt = function() {
@@ -94,19 +92,11 @@ function gameStart() {
 		jumping = false;
 	}
 
-	jQuery.fn.marcheBottom = function() {
-		$(this).css({backgroundPosition:'-793px 0px'}).animate({ "bottom": "-=0px" }, 500 );
-	  	$(this).css({backgroundPosition:'-927px 0px'}).animate({ "bottom": "+=0px" }, 500, function () {
-	  		$("#perso").stopTime().mouvMarcheDrt();
-	  	});
-	};
-
-
 	$(document).ready(function() {
 
 		// Code qui gère la touche 'S', la touche 'ESPACE' et la touche 'Flèche BAS'
 		var arret = 0;
-		$(document).on('keydown', function(touche) {
+		$(document).on('keydown', function (touche) {
 			var appui = touche.keyCode;
 	    	if(appui == 83) { // si le code de la touche est égal à 83 (S)
 	        	if (arret == 1) {
@@ -119,12 +109,6 @@ function gameStart() {
 					arret = 0;
 				} else {
 					$("#perso").stopTime().marcheTop();
-				}
-	    	} else if(appui == 40){ // si le code de la touche est égal à 40 (Flèche BAS)
-	    		if (arret == 1) {
-					arret = 0;
-				} else {
-					$("#perso").stopTime().marcheBottom();
 				}
 	    	}
 		});
@@ -307,17 +291,7 @@ function hitboxCheck() {
 }
 hitboxCheck();
 
-
-// if(etatPerso = false){
-// 	$('#site').css('display', 'none');
-// 	$('#game').css('display', 'none');
-// 	$('#deadScreen').css('display', 'block');
-	
-// }
-
-
-// // Fonction qui redémarre le jeu
-// function gameRestart() {
-// 	$('.worldselect').removeAttr('disabled');
-// 	$('#worldstart').removeAttr('disabled');
-// }
+// Fonction qui redémarre le jeu
+function gameRestart() {
+	location.reload();
+}
