@@ -1,8 +1,8 @@
 var worldChoice = 1; // Peut être égal à 1, 2, 3 ou 4 (1 par défaut)
 var persoChoice = 1; // Peut être égal à 1, 2 ou 3 (1 par défaut)
 var score = 0; // Score
-
-// gameStart();
+var level; // Objectif par défaut
+var difficulty; // Difficulté la plus facile
 
 // Fonction de choix du monde (textures BG + GROUND)
 $('.worldselect').click(function(event) {
@@ -75,8 +75,8 @@ function gameStart() {
 	jQuery.fn.marcheTop = function() {
 		if(!jumping){
 			jumping = true;
-			$(this).css({backgroundPosition:'-528px 0px'}).animate({ "bottom": "+=550px" }, 700 );
-  			$(this).css({backgroundPosition:'-660px 0px'}).animate({ "bottom": "-=550px" }, 950 , function () {
+			$(this).css({backgroundPosition:'-528px 0px'}).animate({ "bottom": "+=300px" }, 700 );
+  			$(this).css({backgroundPosition:'-660px 0px'}).animate({ "bottom": "-=300px" }, 950 , function () {
   				$("#perso").stopTime().mouvMarcheDrt();
   			});
   			setTimeout(land, 1301);
@@ -127,7 +127,8 @@ function gameStart() {
 			reset: function () { this.value = 0; },
 			get: function () { return this.value; }
 		};
-
+		console.log('level : '+level);
+		console.log('difficulty : '+difficulty);
 
 		// Fonction du scroll du background
 		var scrollSpeed = 10;  // speed in milliseconds
@@ -171,21 +172,15 @@ function gameStart() {
 	        		}
 
 	        		// Tous les 10 blocs
-	        		
-	        		if (compteurGeneration.get() == 10) {
-	        			console.log(compteurGeneration.get() + "ème génération !");
+	        		console.log(compteurGeneration.get());
+	        		if (compteurGeneration.get() == difficulty) {
 	        			// Code a executer
 	        			// var aleaDegree = Math.round(Math.random()*5); // Determine le délai avant qu'un obstacle soit ajouté
-	        			// console.log("variation = "+ aleaDegree);
 	        			var levelLength = Math.ceil($(window).width() / 100) + 2;
 	        			var i=0; i<levelLength; i++;
 						var translateX = i * 120; 
 	        			// récupérer la position de ce bloc pour ajouter un bloc html '.obstacle'
 						$("#obstacles").delay((Math.round(Math.random()*5))*1000).append('<div data-hitbox="true" class="obstacle" id="obsActive" style="bottom: '+ translateX +'px"><img border="0" alt="animated obstacle" src="img/obstacles/obstacle'+ worldChoice +'.png" /></div>');
-						var n = $("#obstacles").children().length;	
-						// var firstObstacle = $("#obstacles").firstChild();
-						console.log("nombre d'obstacles = " + n);
-	        			// donner à ce bloc le même scroll que le sol (mais pas le replacement);
 	        			$('.obstacle').animate({
 	        				right: parseInt($(this).css('left')) - 100 +"px"
 	        			}, (vitesseGround*10), 'linear');
@@ -214,7 +209,6 @@ function gameStart() {
 	        	time -= delta;
 	        	if ( time <= 0 ) {
 	            	clearInterval(tid);
-	            	console.log('no more time !'); // alerting when there is no more time
 	        	}
 	    	}, delta);
 		})();
@@ -269,41 +263,35 @@ function hitboxCheck() {
 	// quand obs.left inférieur ou égal à perso.right, 
 	//		vérifier si perso.bottom inférieur ou égal à obs.top
 	//			si true : DEAD
-	if(obsHitbox.posleft <= persoHitbox.posright){
+	if(obsHitbox.posleft <= persoHitbox.posright && obsHitbox.posright >= persoHitbox.posleft){
 		if(persoHitbox.posbottom <= obsHitbox.postop){
-			console.log('DEAD MODAFUCKA');
 			// Rajouter code de fin de jeu ici !
 			var etatPerso = false;
-			console.log(etatPerso);
 			window.location.href = "dead.html";
 		} else {
 			obs.removeAttr('id');
 			// Code à rajouter en cas d'évitement de l'obstacle
 			score = score+10;
-			console.log(score);
+			$("#scoreCounter").text(score +' / '+ level);
 			// Gestion du score
 			switch(worldChoice){
 				case 1:
-					if(score >=100){
-						console.log('Victoire lvl 1');
+					if(score >= level){
 						window.location.href = "victoires/victoire1.html";
 					}
 					break;
 				case 2:
-					if(score >=120){
-						console.log('Victoire lvl 2');
+					if(score >= level){
 						window.location.href = "victoires/victoire2.html";
 					}
 					break;
 				case 3:
-					if(score >=160){
-						console.log('Victoire lvl 3');
+					if(score >= level){
 						window.location.href = "victoires/victoire3.html";
 					}
 					break;
 				case 4:
-					if(score >=200){
-						console.log('Victoire lvl 4');
+					if(score >= level){
 						window.location.href = "victoires/victoire4.html";
 					}
 					break;		

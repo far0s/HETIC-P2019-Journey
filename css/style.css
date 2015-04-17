@@ -6,8 +6,6 @@ body {
 	width: auto; 
 }
 
-
-
 #game {
 	display: none;
 }
@@ -51,9 +49,9 @@ nav {
 	  margin-top: -3px;
 }
 
-.right p {
-	text-decoration: underline;
-	font-size: 20px;
+.right p, .right li #scoreCounter {
+	text-decoration: none;
+	font-size: 18px;
 	display: inline;
 	margin-right: 10px;
 }
@@ -68,6 +66,10 @@ nav ul li {
 	margin-right: 20px;
 	list-style: none;
 	display: inline;
+	color: #fafafa;
+	font-size: 18px;
+	font-family: 'Open Sans', sans-serif;
+	text-transform: uppercase;
 }
 
 nav ul li h1 {
@@ -209,7 +211,7 @@ nav ul li button:hover {
  	height: 140vh;
  	margin-top: -85px;
  	background-size: cover;
-    background: url("./img/worlds/bgScene1.png") repeat-x 0 bottom;
+    background: url("../img/worlds/bgScene1.png") repeat-x 0 bottom;
 }
 
 .ground {
@@ -231,7 +233,7 @@ nav ul li button:hover {
 	position: absolute;
 	width: 128px;
 	height: 200px;  
-	background: url("./img/perso1.png") no-repeat;
+	background: url("../img/perso1.png") no-repeat;
 	bottom: 110px;
 	left: 200px;
 	z-index: 800;
