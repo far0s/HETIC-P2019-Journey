@@ -13,3 +13,6 @@ We were allowed to use JQuery plugins after validation from our teacher.
 
 ### The game
 is a 2D runner featuring a hero running across four lands, jumping above obstacles and dodging hostile projectiles. It is set in a fantastical land, in a colorful and nonetheless spooky world.
+
+##### Available to try here
+<http://journey.guillaumelebelt.fr>
