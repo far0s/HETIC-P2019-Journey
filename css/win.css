@@ -1,0 +1,76 @@
+body {
+background-color: rgba(0, 0, 0, 0.7);
+  overflow-x:hidden;
+  overflow-y:hidden;
+}
+
+#victoire1 {
+  font-family: Impact;
+  font-weight: 800;
+  color: transparent;
+  font-size:40vh;
+  background: url("../img/worlds/bgScene1.png") repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  -webkit-background-clip: text;
+  position:relative;
+  text-align:center;
+  letter-spacing: 20px;
+}
+
+#victoire2 {
+  font-family: Impact;
+  font-weight: 800;
+  color: transparent;
+  font-size:40vh;
+  background: url("../img/worlds/bgScene2.png") repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  -webkit-background-clip: text;
+  position:relative;
+  text-align:center;
+  letter-spacing: 20px;
+}
+
+#victoire3 {
+  font-family: Impact;
+  font-weight: 800;
+  color: transparent;
+  font-size:40vh;
+  background: url("../img/worlds/bgScene3.png") repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  -webkit-background-clip: text;
+  position:relative;
+  text-align:center;
+  letter-spacing: 20px;
+}
+
+#victoire4 {
+  font-family: Impact;
+  font-weight: 800;
+  color: transparent;
+  font-size:40vh;
+  background: url("../img/worlds/bgScene4.png") repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  -webkit-background-clip: text;
+  position:relative;
+  text-align:center;
+  letter-spacing: 20px;
+}
+
+a {
+	z-index: 9999999999;
+	color: white !important;
+	text-align: center;
+
+}

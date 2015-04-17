@@ -1,5 +1,6 @@
 var worldChoice = 1; // Peut être égal à 1, 2, 3 ou 4 (1 par défaut)
 var persoChoice = 1; // Peut être égal à 1, 2 ou 3 (1 par défaut)
+var score = 0; // Score
 
 // gameStart();
 
@@ -22,10 +23,6 @@ $('.worldselect').click(function(event) {
 			$('.parallax-layer').css('background','url("../Journey/img/worlds/bgScene4.png")');
 			$('.ground').css('background','url("../Journey/img/grounds/ground4.png")');
 			break;
-		default:
-			$('.parallax-layer').css('background','url("../Journey/img/worlds/bgScene1.png")');
-			$('.ground').css('background','url("../Journey/img/grounds/ground1.png")');
-			break;
 	}
 });
 
@@ -40,9 +37,6 @@ $('.persoselect').click(function(event) {
 			break;
 		case 3:
 			$('#perso').css('background', 'url("../Journey/img/perso3.png")');
-			break;
-		default:
-			$('#perso').css('background', 'url("../Journey/img/perso1.png")');
 			break;
 	}
 });
@@ -285,6 +279,35 @@ function hitboxCheck() {
 		} else {
 			obs.removeAttr('id');
 			// Code à rajouter en cas d'évitement de l'obstacle
+			score = score+10;
+			console.log(score);
+			// Gestion du score
+			switch(worldChoice){
+				case 1:
+					if(score >=100){
+						console.log('Victoire lvl 1');
+						window.location.href = "victoires/victoire1.html";
+					}
+					break;
+				case 2:
+					if(score >=120){
+						console.log('Victoire lvl 2');
+						window.location.href = "victoires/victoire2.html";
+					}
+					break;
+				case 3:
+					if(score >=160){
+						console.log('Victoire lvl 3');
+						window.location.href = "victoires/victoire3.html";
+					}
+					break;
+				case 4:
+					if(score >=200){
+						console.log('Victoire lvl 4');
+						window.location.href = "victoires/victoire4.html";
+					}
+					break;		
+			}
 		}
 	}
 	hitTimer = setTimeout(hitboxCheck, 500);

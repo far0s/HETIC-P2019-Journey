@@ -612,3 +612,35 @@ a {
 	width: 100%;
 	text-transform: uppercase;
 }
+
+.victoire {
+	z-index: 9999999;
+	font-family: Impact;
+	font-weight: 800;
+	color: transparent;
+	font-size:40vh;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	-webkit-background-clip: text;
+	position:relative;
+	text-align:center;
+	letter-spacing: 20px;
+}
+
+#victoire1 {
+ 	background: url("../img/worlds/bgScene1.png") repeat;
+}
+
+#victoire2 {
+	background: url("../img/worlds/bgScene2.png") repeat;
+}
+
+#victoire3 {
+background: url("../img/worlds/bgScene3.png") repeat;
+}
+
+#victoire4 {
+	background: url("../img/worlds/bgScene4.png") repeat;
+}
