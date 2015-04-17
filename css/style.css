@@ -37,10 +37,6 @@ nav {
 	padding-top: 6px;
 }
 
-.left .worldselect:disabled {
-	color: #dddddd;
-}
-
 .right {
 	float: right;
 	display: inline;

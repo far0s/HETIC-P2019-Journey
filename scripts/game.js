@@ -1,7 +1,7 @@
 var worldChoice = 1; // Peut être égal à 1, 2, 3 ou 4 (1 par défaut)
 var persoChoice = 1; // Peut être égal à 1, 2 ou 3 (1 par défaut)
 var score = 0; // Score
-var level; // Objectif par défaut
+var level; // Objectif de score
 var difficulty; // Difficulté la plus facile
 
 // Fonction de choix du monde (textures BG + GROUND)
@@ -41,8 +41,7 @@ $('.persoselect').click(function(event) {
 	}
 });
 
-
-// Fonction qui démarre le jeu  
+// Fonction de démarrage du jeu (qui inclut quasiment tous les algos du jeu) 
 function gameStart() {
 	$('#game').css('display','block');
 	$('#site').css('display','none');
@@ -87,7 +86,6 @@ function gameStart() {
 	}
 
 	$(document).ready(function() {
-
 		// Code qui gère la touche 'S', la touche 'ESPACE' et la touche 'Flèche BAS'
 		var arret = 0;
 		$(document).on('keydown', function (touche) {
@@ -107,7 +105,6 @@ function gameStart() {
 	    	}
 		});
 
-
 	/* liste des variables utiles */
 		var arrowSpace = 32; /* Keycode de la touche espace */
 		var arrowTop = 38; /* Keycode de la fléche du haut */
@@ -116,7 +113,7 @@ function gameStart() {
 		var keyEscape = 27; /* Keycode de la barre d'espace */
 		var keyS = 83; /* Keycode de la touche S */
 		var groundRepetition; /* Pour le décor */
-		var vitesseGround = 400; /* gestion de la vitesse du sol en fonction du niveau (+ ajuste le temps de latence automatiquement)*/
+		var vitesseGround = 250; /* gestion de la vitesse du sol en fonction du niveau (+ ajuste le temps de latence automatiquement)*/
 		var levelLength = 10;
 		var grounds = [];
 		var intervalGame = function () {};
@@ -127,11 +124,9 @@ function gameStart() {
 			reset: function () { this.value = 0; },
 			get: function () { return this.value; }
 		};
-		console.log('level : '+level);
-		console.log('difficulty : '+difficulty);
 
 		// Fonction du scroll du background
-		var scrollSpeed = 10;  // speed in milliseconds
+		var scrollSpeed = 50;  // speed in milliseconds
 		var current = 0;  // set the default position
 		var direction = 'h';  // set the direction ('h' or 'v')
 		function bgscroll(){
@@ -146,7 +141,6 @@ function gameStart() {
 				var translateX = i * 100; // La position du block (le numero * sa width)
 				$("#grounds").append('<div class="ground" style="left: '+ translateX +'px"><img border="0" alt="animated ground" src="img/grounds/ground'+ worldChoice +'.png" /></div>');
 			};
-
 			// On recupere les enfants de #grounds soit chaque bloc .ground
 			grounds = $('#grounds').children();
 			// On lance le defilement des blocs
@@ -154,7 +148,6 @@ function gameStart() {
 			// On scroll le background
 			intervalBackground = setInterval(bgscroll, scrollSpeed);
 		};
-
 		createGround();
 
 		// Rafraichit la position de chaque bloc
@@ -172,7 +165,6 @@ function gameStart() {
 	        		}
 
 	        		// Tous les 10 blocs
-	        		console.log(compteurGeneration.get());
 	        		if (compteurGeneration.get() == difficulty) {
 	        			// Code a executer
 	        			// var aleaDegree = Math.round(Math.random()*5); // Determine le délai avant qu'un obstacle soit ajouté
@@ -193,7 +185,7 @@ function gameStart() {
 	  		});
 	    }
 
-	    // WHEN TAB/WINDOW IS NOT ACTIVE, JS EXECUTION PAUSES
+	    // When tab/window is not active, JS execution pauses
 		(function() {
 	    	var time = 999999999, // temps de jeu à définir en ms
 	        	delta = 50,
@@ -223,7 +215,6 @@ function gameStart() {
 						$('.overlay').removeClass('hidden');
 						clearInterval(intervalGame);
 						clearInterval(intervalBackground);
-						$("#perso").stopTime().mouvStop();
 					} else {
 						$('.overlay').addClass('hidden');
 						loop();
