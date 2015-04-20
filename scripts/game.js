@@ -1,8 +1,45 @@
+// WIP : tentative de refactoring des variables et du script
+// var worldParams = {
+// 	choice: 1, // by default (can be 1, 2, 3 or 4)
+// 	score: 0,
+// 	bg: "url('../Journey/img/worlds/bgScene"+ choice +".png')",
+// 	ground: "url('../Journey/img/grounds/ground"+ choice +".png')",
+// 	level,
+// 	difficulty,
+// }
+
+// World Params vars (being reworked)
 var worldChoice = 1; // Peut être égal à 1, 2, 3 ou 4 (1 par défaut)
 var persoChoice = 1; // Peut être égal à 1, 2 ou 3 (1 par défaut)
 var score = 0; // Score
 var level; // Objectif de score
 var difficulty; // Difficulté la plus facile
+
+// General gameplay vars
+var arrowSpace = 32; /* Keycode de la touche espace */
+var arrowTop = 38; /* Keycode de la fléche du haut */
+var arrowBottom = 40; /* Keycode de la fléche du bas */
+var arrowShift = 16; /* Keycode de la touche shift */
+var keyEscape = 27; /* Keycode de la barre d'espace */
+var keyS = 83; /* Keycode de la touche S */
+var groundRepetition; /* Pour le décor */
+var vitesseGround = 250; /* gestion de la vitesse du sol en fonction du niveau (+ ajuste le temps de latence automatiquement)*/
+var levelLength = 10;
+var grounds = [];
+var intervalGame = function () {};
+var intervalBackground = function () {};	
+var compteurGeneration = {
+	value: 0,
+	add: function () { this.value++; },
+	reset: function () { this.value = 0; },
+	get: function () { return this.value; }
+};
+
+// BG scrolling vars
+var scrollSpeed = 50;  // speed in milliseconds
+var current = 0;  // set the default position
+var direction = 'h';  // set the direction ('h' or 'v')
+
 
 // Fonction de choix du monde (textures BG + GROUND)
 $('.worldselect').click(function(event) {
@@ -105,30 +142,8 @@ function gameStart() {
 	    	}
 		});
 
-	/* liste des variables utiles */
-		var arrowSpace = 32; /* Keycode de la touche espace */
-		var arrowTop = 38; /* Keycode de la fléche du haut */
-		var arrowBottom = 40; /* Keycode de la fléche du bas */
-		var arrowShift = 16; /* Keycode de la touche shift */
-		var keyEscape = 27; /* Keycode de la barre d'espace */
-		var keyS = 83; /* Keycode de la touche S */
-		var groundRepetition; /* Pour le décor */
-		var vitesseGround = 250; /* gestion de la vitesse du sol en fonction du niveau (+ ajuste le temps de latence automatiquement)*/
-		var levelLength = 10;
-		var grounds = [];
-		var intervalGame = function () {};
-		var intervalBackground = function () {};	
-		var compteurGeneration = {
-			value: 0,
-			add: function () { this.value++; },
-			reset: function () { this.value = 0; },
-			get: function () { return this.value; }
-		};
 
 		// Fonction du scroll du background
-		var scrollSpeed = 50;  // speed in milliseconds
-		var current = 0;  // set the default position
-		var direction = 'h';  // set the direction ('h' or 'v')
 		function bgscroll(){
 		    current -= 1; // 1 pixel row at a time
 		    $('.parallax-layer').css("backgroundPosition", (direction == 'h') ? current+"px 0" : "0 " + current+"px");  // move the background with backgrond-position css properties
