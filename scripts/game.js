@@ -1,81 +1,59 @@
-// WIP : tentative de refactoring des variables et du script
+// WIP : Refactoring des variables, des fonctions et du script entier
+// --> Ne pas oublier de tout retranscrire en anglais plutôt qu'en français
+
+// exemple : faire un objet worldParams englobant toutes les vars définies à la création du jeu
 // var worldParams = {
-// 	choice: 1, // by default (can be 1, 2, 3 or 4)
-// 	score: 0,
-// 	bg: "url('../Journey/img/worlds/bgScene"+ choice +".png')",
-// 	ground: "url('../Journey/img/grounds/ground"+ choice +".png')",
-// 	level,
-// 	difficulty,
+	// var worldChoice = 1;  // Can be equal to 1, 2, 3 or 4 (default = 1)
+	// var persoChoice = 1;  // Can be equal to 1, 2, 3 or 4 (default = 1)
+	// var score = 0; // Score
+	// var level; // Objective
+	// var difficulty; // Difficulty level (easier by default)
+	/* NB : worldChoice, persoChoice, level and difficulty are defined in the HTML before the game */
 // }
 
 // World Params vars (being reworked)
-var worldChoice = 1; // Peut être égal à 1, 2, 3 ou 4 (1 par défaut)
-var persoChoice = 1; // Peut être égal à 1, 2 ou 3 (1 par défaut)
+var worldChoice = 1;  // Can be equal to 1, 2, 3 or 4 (default = 1)
+var persoChoice = 1;  // Can be equal to 1, 2, 3 or 4 (default = 1)
 var score = 0; // Score
-var level; // Objectif de score
-var difficulty; // Difficulté la plus facile
+var level; // Objective
+var difficulty; // Difficulty level (easier by default)
 
 // General gameplay vars
-var arrowSpace = 32; /* Keycode de la touche espace */
-var arrowTop = 38; /* Keycode de la fléche du haut */
-var arrowBottom = 40; /* Keycode de la fléche du bas */
-var arrowShift = 16; /* Keycode de la touche shift */
-var keyEscape = 27; /* Keycode de la barre d'espace */
-var keyS = 83; /* Keycode de la touche S */
-var groundRepetition; /* Pour le décor */
-var vitesseGround = 250; /* gestion de la vitesse du sol en fonction du niveau (+ ajuste le temps de latence automatiquement)*/
-var levelLength = 10;
-var grounds = [];
-var intervalGame = function () {};
-var intervalBackground = function () {};	
-var compteurGeneration = {
+var arrowSpace = 32;  // SPACE keycode
+var arrowTop = 38;  // UP ARROW keycode
+var arrowBottom = 40;  // DOWN ARROW keycode
+var arrowShift = 16;  // SHIFT keycode
+var keyEscape = 27;  // ESCAPE keycode
+var keyS = 83;  // S keycode — used for jump-start running animation
+var groundRepetition;  // For background repetition
+var vitesseGround = 250;  // Ground speed based on level (+ lag is adjusted automatically)
+var levelLength = 10;  // Game width measured in ground blocks
+var intervalGame = function () {};  // Interval initialized for ground scrolling
+var intervalBackground = function () {};  // Interval initialized for background scrolling	
+var compteurGeneration = {  // Used to add new ground blocks whenever conditions are true
 	value: 0,
 	add: function () { this.value++; },
 	reset: function () { this.value = 0; },
 	get: function () { return this.value; }
 };
 
-// BG scrolling vars
-var scrollSpeed = 50;  // speed in milliseconds
-var current = 0;  // set the default position
-var direction = 'h';  // set the direction ('h' or 'v')
+// Background scrolling vars
+var bgScrollVars = {
+	speed: 50,  // Speed in milliseconds
+	current: 0,  // Set the default position
+	direction: 'h'  // Set the direction ('h' or 'v')
+}
 
 
 // Fonction de choix du monde (textures BG + GROUND)
 $('.worldselect').click(function(event) {
-	switch(worldChoice){
-		case 1:
-			$('.parallax-layer').css('background','url("../Journey/img/worlds/bgScene1.png")');
-			$('.ground').css('background','url("../Journey/img/grounds/ground1.png")');
-			break;
-		case 2:
-			$('.parallax-layer').css('background','url("../Journey/img/worlds/bgScene2.png")');
-			$('.ground').css('background','url("../Journey/img/grounds/ground2.png")');
-			break;
-		case 3:
-			$('.parallax-layer').css('background','url("../Journey/img/worlds/bgScene3.png")');
-			$('.ground').css('background','url("../Journey/img/grounds/ground3.png")');
-			break;
-		case 4:
-			$('.parallax-layer').css('background','url("../Journey/img/worlds/bgScene4.png")');
-			$('.ground').css('background','url("../Journey/img/grounds/ground4.png")');
-			break;
-	}
+	$('.parallax-layer').css('background','url("img/worlds/bgScene'+ worldChoice +'.png")');
+	$('.ground').css('background','url("img/grounds/ground'+ worldChoice +'.png")');
 });
 
 // Fonction de choix du personnage
 $('.persoselect').click(function(event) {
-	switch(persoChoice){
-		case 1:
-			$('#perso').css('background', 'url("../Journey/img/perso1.png")');
-			break;
-		case 2:
-			$('#perso').css('background', 'url("../Journey/img/perso2.png")');
-			break;
-		case 3:
-			$('#perso').css('background', 'url("../Journey/img/perso3.png")');
-			break;
-	}
+	$('#perso').css('background', 'url("img/perso'+ worldChoice +'.png")');
 });
 
 // Fonction de démarrage du jeu (qui inclut quasiment tous les algos du jeu) 
@@ -142,11 +120,10 @@ function gameStart() {
 	    	}
 		});
 
-
-		// Fonction du scroll du background
+		// Backgroudn scrolling function
 		function bgscroll(){
-		    current -= 1; // 1 pixel row at a time
-		    $('.parallax-layer').css("backgroundPosition", (direction == 'h') ? current+"px 0" : "0 " + current+"px");  // move the background with backgrond-position css properties
+		    bgScrollVars.current -= 1; // 1 pixel row at a time
+		    $('.parallax-layer').css("backgroundPosition", (bgScrollVars.direction == 'h') ? bgScrollVars.current+"px 0" : "0 " + bgScrollVars.current+"px");  // move the background with backgrond-position css properties
 		}
 
 		function createGround() {
@@ -161,7 +138,7 @@ function gameStart() {
 			// On lance le defilement des blocs
 			intervalGame = setInterval(loop, vitesseGround);
 			// On scroll le background
-			intervalBackground = setInterval(bgscroll, scrollSpeed);
+			intervalBackground = setInterval(bgscroll, bgScrollVars.speed);
 		};
 		createGround();
 
@@ -235,7 +212,7 @@ function gameStart() {
 						loop();
 						bgscroll();
 						intervalGame = setInterval(loop, vitesseGround);
-						intervalBackground = setInterval(bgscroll, scrollSpeed);
+						intervalBackground = setInterval(bgscroll, bgScrollVars.speed);
 						$("#perso").stopTime().mouvMarcheDrt();
 					} 
 					event.stopImmediatePropagation();
