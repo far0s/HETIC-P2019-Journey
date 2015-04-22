@@ -45,18 +45,18 @@ var bgScrollVars = {
 }
 
 
-// Fonction de choix du monde (textures BG + GROUND)
+// World selection funtion (background + ground textures)
 $('.worldselect').click(function(event) {
 	$('.parallax-layer').css('background','url("img/worlds/bgScene'+ worldChoice +'.png")');
 	$('.ground').css('background','url("img/grounds/ground'+ worldChoice +'.png")');
 });
 
-// Fonction de choix du personnage
+// Character selection function
 $('.persoselect').click(function(event) {
 	$('#perso').css('background', 'url("img/perso'+ worldChoice +'.png")');
 });
 
-// Fonction de démarrage du jeu (qui inclut quasiment tous les algos du jeu) 
+// Game starting function (which essentially includes all the game mechanics)
 function gameStart() {
 	$('#game').css('display','block');
 	$('#site').css('display','none');
@@ -85,7 +85,6 @@ function gameStart() {
 
 	// Animation du saut et reprise de mouvMarcheDrt()
 	var jumping = false;
-
 	jQuery.fn.marcheTop = function() {
 		if(!jumping){
 			jumping = true;
