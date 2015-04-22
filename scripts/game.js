@@ -1,22 +1,14 @@
 // WIP : Refactoring des variables, des fonctions et du script entier
 // --> Ne pas oublier de tout retranscrire en anglais plutôt qu'en français
 
-// exemple : faire un objet worldParams englobant toutes les vars définies à la création du jeu
-// var worldParams = {
-	// var worldChoice = 1;  // Can be equal to 1, 2, 3 or 4 (default = 1)
-	// var persoChoice = 1;  // Can be equal to 1, 2, 3 or 4 (default = 1)
-	// var score = 0; // Score
-	// var level; // Objective
-	// var difficulty; // Difficulty level (easier by default)
-	/* NB : worldChoice, persoChoice, level and difficulty are defined in the HTML before the game */
-// }
-
-// World Params vars (being reworked)
-var worldChoice = 1;  // Can be equal to 1, 2, 3 or 4 (default = 1)
-var persoChoice = 1;  // Can be equal to 1, 2, 3 or 4 (default = 1)
-var score = 0; // Score
-var level; // Objective
-var difficulty; // Difficulty level (easier by default)
+// World Parameters object
+var worldParams = {
+	world: 1,  // Can be equal to 1, 2, 3 or 4 (default = 1)
+	perso: 1,  // Can be equal to 1, 2, 3 or 4 (default = 1)
+	score: 0,  // Score (default = 0)
+	level: 100,  // Objective (default = easier)
+	difficulty: 12,  // Difficulty level (default = easier)
+}	/* NB : world, perso, level and difficulty are defined in the HTML before the game */
 
 // General gameplay vars
 var arrowSpace = 32;  // SPACE keycode
@@ -44,16 +36,15 @@ var bgScrollVars = {
 	direction: 'h'  // Set the direction ('h' or 'v')
 }
 
-
 // World selection funtion (background + ground textures)
 $('.worldselect').click(function(event) {
-	$('.parallax-layer').css('background','url("img/worlds/bgScene'+ worldChoice +'.png")');
-	$('.ground').css('background','url("img/grounds/ground'+ worldChoice +'.png")');
+	$('.parallax-layer').css('background','url("img/worlds/bgScene'+ worldParams.world +'.png")');
+	$('.ground').css('background','url("img/grounds/ground'+ worldParams.world +'.png")');
 });
 
 // Character selection function
 $('.persoselect').click(function(event) {
-	$('#perso').css('background', 'url("img/perso'+ worldChoice +'.png")');
+	$('#perso').css('background', 'url("img/perso'+ worldParams.perso +'.png")');
 });
 
 // Game starting function (which essentially includes all the game mechanics)
@@ -130,7 +121,7 @@ function gameStart() {
 			levelLength = Math.ceil($(window).width() / 100) + 2;
 			for (var i=0; i<levelLength; i++) {
 				var translateX = i * 100; // La position du block (le numero * sa width)
-				$("#grounds").append('<div class="ground" style="left: '+ translateX +'px"><img border="0" alt="animated ground" src="img/grounds/ground'+ worldChoice +'.png" /></div>');
+				$("#grounds").append('<div class="ground" style="left: '+ translateX +'px"><img border="0" alt="animated ground" src="img/grounds/ground'+ worldParams.world +'.png" /></div>');
 			};
 			// On recupere les enfants de #grounds soit chaque bloc .ground
 			grounds = $('#grounds').children();
@@ -156,14 +147,14 @@ function gameStart() {
 	        		}
 
 	        		// Tous les 10 blocs
-	        		if (compteurGeneration.get() == difficulty) {
+	        		if (compteurGeneration.get() == worldParams.difficulty) {
 	        			// Code a executer
 	        			// var aleaDegree = Math.round(Math.random()*5); // Determine le délai avant qu'un obstacle soit ajouté
 	        			var levelLength = Math.ceil($(window).width() / 100) + 2;
 	        			var i=0; i<levelLength; i++;
 						var translateX = i * 120; 
 	        			// récupérer la position de ce bloc pour ajouter un bloc html '.obstacle'
-						$("#obstacles").delay((Math.round(Math.random()*5))*1000).append('<div data-hitbox="true" class="obstacle" id="obsActive" style="bottom: '+ translateX +'px"><img border="0" alt="animated obstacle" src="img/obstacles/obstacle'+ worldChoice +'.png" /></div>');
+						$("#obstacles").delay((Math.round(Math.random()*5))*1000).append('<div data-hitbox="true" class="obstacle" id="obsActive" style="bottom: '+ translateX +'px"><img border="0" alt="animated obstacle" src="img/obstacles/obstacle'+ worldParams.world +'.png" /></div>');
 	        			$('.obstacle').animate({
 	        				right: parseInt($(this).css('left')) - 100 +"px"
 	        			}, (vitesseGround*10), 'linear');
@@ -242,49 +233,25 @@ function hitboxCheck() {
 		posright: parseInt(obs.css('right')),
 		posleft: $(window).width() - 72 - parseInt(obs.css('right')),
 	};
-	// quand obs.left inférieur ou égal à perso.right, 
-	//		vérifier si perso.bottom inférieur ou égal à obs.top
-	//			si true : DEAD
 	if(obsHitbox.posleft <= persoHitbox.posright && obsHitbox.posright >= persoHitbox.posleft){
-		if(persoHitbox.posbottom <= obsHitbox.postop){
-			// Rajouter code de fin de jeu ici !
+		if(persoHitbox.posbottom <= obsHitbox.postop) {  // Rajouter code de fin de jeu ici !
 			var etatPerso = false;
 			window.location.href = "dead.html";
-		} else {
+		} else {  // Code executed in case of dodge
 			obs.removeAttr('id');
-			// Code à rajouter en cas d'évitement de l'obstacle
-			score = score+10;
-			$("#scoreCounter").text(score +' / '+ level);
-			// Gestion du score
-			switch(worldChoice){
-				case 1:
-					if(score >= level){
-						window.location.href = "victoires/victoire1.html";
-					}
-					break;
-				case 2:
-					if(score >= level){
-						window.location.href = "victoires/victoire2.html";
-					}
-					break;
-				case 3:
-					if(score >= level){
-						window.location.href = "victoires/victoire3.html";
-					}
-					break;
-				case 4:
-					if(score >= level){
-						window.location.href = "victoires/victoire4.html";
-					}
-					break;		
-			}
+			worldParams.score = worldParams.score+10;
+			$("#scoreCounter").text(worldParams.score +' / '+ worldParams.level);
+			// Victory condition and events
+			if (worldParams.score >= worldParams.level) {
+				window.location.href = "victoires/victoire"+ worldParams.world +".html";
+			};
 		}
 	}
 	hitTimer = setTimeout(hitboxCheck, 500);
 }
 hitboxCheck();
 
-// Fonction qui redémarre le jeu
+// Game restart function
 function gameRestart() {
 	location.reload();
 }
