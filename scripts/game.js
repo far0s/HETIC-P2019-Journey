@@ -1,14 +1,11 @@
-// WIP : Refactoring des variables, des fonctions et du script entier
-// --> Ne pas oublier de tout retranscrire en anglais plutôt qu'en français
-
 // World Parameters object
-var worldParams = {
+var worldParams = {  /* NB : world, perso, level and difficulty are defined in the HTML before the game */
 	world: 1,  // Can be equal to 1, 2, 3 or 4 (default = 1)
 	perso: 1,  // Can be equal to 1, 2, 3 or 4 (default = 1)
 	score: 0,  // Score (default = 0)
 	level: 100,  // Objective (default = easier)
 	difficulty: 12,  // Difficulty level (default = easier)
-}	/* NB : world, perso, level and difficulty are defined in the HTML before the game */
+}
 
 // General gameplay vars
 var arrowSpace = 32;  // SPACE keycode
@@ -49,11 +46,11 @@ $('.persoselect').click(function(event) {
 
 // Game starting function (which essentially includes all the game mechanics)
 function gameStart() {
-	$('#game').css('display','block');
-	$('#site').css('display','none');
-	$('header').append('<audio id="player" src="sounds/rof.mp3" autoplay loop>Veuillez mettre à jour votre navigateur !</audio>');
+	$('#game').css('display','block');  // Shows the game
+	$('#site').css('display','none');  // Hides the site
+	$('header').append('<audio id="player" src="sounds/rof.mp3" autoplay loop>Veuillez mettre à jour votre navigateur !</audio>');  // Starts the music
 
-	// Animation de la marche
+	// Run animation
 	jQuery.fn.marcheDrt = function() {
 		$(this).oneTime(100,function() {
 			$(this).css({backgroundPosition:'0px 0px'});
@@ -66,7 +63,7 @@ function gameStart() {
 		});
 	};
 
-	// Répétition de marcheDrt() 
+	// Repetition of Run animation 
 	jQuery.fn.mouvMarcheDrt = function(){
 		$(this).marcheDrt();
 		$(this).everyTime(400,function(){
@@ -74,7 +71,7 @@ function gameStart() {
 		});
 	};
 
-	// Animation du saut et reprise de mouvMarcheDrt()
+	// Jump animation and Run resuming
 	var jumping = false;
 	jQuery.fn.marcheTop = function() {
 		if(!jumping){
@@ -84,14 +81,13 @@ function gameStart() {
   				$("#perso").stopTime().mouvMarcheDrt();
   			});
   			setTimeout(land, 1301);
+  			function land() {
+				jumping = false;
+			}
 		}
 	};	
-	function land() {
-		jumping = false;
-	}
-
-	$(document).ready(function() {
-		// Code qui gère la touche 'S', la touche 'ESPACE' et la touche 'Flèche BAS'
+	
+	$(document).ready(function() {  // Start and jump-start function, also pause/resume function (broken at the moment)
 		var arret = 0;
 		$(document).on('keydown', function (touche) {
 			var appui = touche.keyCode;
@@ -110,7 +106,7 @@ function gameStart() {
 	    	}
 		});
 
-		// Backgroudn scrolling function
+		// Background scrolling function
 		function bgscroll(){
 		    bgScrollVars.current -= 1; // 1 pixel row at a time
 		    $('.parallax-layer').css("backgroundPosition", (bgScrollVars.direction == 'h') ? bgScrollVars.current+"px 0" : "0 " + bgScrollVars.current+"px");  // move the background with backgrond-position css properties
@@ -220,21 +216,21 @@ function hitboxCheck() {
 	var persoHitbox = {
 		height: 200,
 		width: 128,
-		posbottom: parseInt(perso.css('bottom')),
-		posleft: 200,
-		posright: 328,
+		bottom: parseInt(perso.css('bottom')),
+		left: 200,
+		right: 328,
 	};
 	var obs = $('#obsActive');
 	var obsHitbox = {
 		height: 130,
 		width: 72,
-		posbottom: 110,
-		postop: 240,
-		posright: parseInt(obs.css('right')),
-		posleft: $(window).width() - 72 - parseInt(obs.css('right')),
+		bottom: 110,
+		top: 240,
+		right: parseInt(obs.css('right')),
+		left: $(window).width() - 72 - parseInt(obs.css('right')),
 	};
-	if(obsHitbox.posleft <= persoHitbox.posright && obsHitbox.posright >= persoHitbox.posleft){
-		if(persoHitbox.posbottom <= obsHitbox.postop) {  // Rajouter code de fin de jeu ici !
+	if(obsHitbox.left <= persoHitbox.right && obsHitbox.right >= persoHitbox.left){
+		if(persoHitbox.bottom <= obsHitbox.top) {  // Rajouter code de fin de jeu ici !
 			var etatPerso = false;
 			window.location.href = "dead.html";
 		} else {  // Code executed in case of dodge
