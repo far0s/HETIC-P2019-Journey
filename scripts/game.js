@@ -91,13 +91,13 @@ function gameStart() {
 		var arret = 0;
 		$(document).on('keydown', function (touche) {
 			var appui = touche.keyCode;
-	    	if(appui == 83) { // si le code de la touche est égal à 83 (S)
+	    	if(appui === keyS) {  // When "S" is pressed
 	        	if (arret == 1) {
 					arret = 0;
 				} else {
 					$("#perso").stopTime().mouvMarcheDrt();
 				}
-	    	} else if(appui == 38){ // si le code de la touche est égal à 38 (ESPACE)
+	    	} else if(appui === arrowTop){  // When "arrowTop" is pressed
 	    		if (arret == 1) {
 					arret = 0;
 				} else {
@@ -105,77 +105,17 @@ function gameStart() {
 				}
 	    	}
 		});
-
-		// Background scrolling function
-		function bgscroll(){
-		    bgScrollVars.current -= 1; // 1 pixel row at a time
-		    $('.parallax-layer').css("backgroundPosition", (bgScrollVars.direction == 'h') ? bgScrollVars.current+"px 0" : "0 " + bgScrollVars.current+"px");  // move the background with backgrond-position css properties
-		}
-
-		function createGround() {
-			// On divise la width de l'écran par la width des blocs pour savoir combien il faut de blocs pour remplir l'écran avec une marge de 2 blocs
-			levelLength = Math.ceil($(window).width() / 100) + 2;
-			for (var i=0; i<levelLength; i++) {
-				var translateX = i * 100; // La position du block (le numero * sa width)
-				$("#grounds").append('<div class="ground" style="left: '+ translateX +'px"><img border="0" alt="animated ground" src="img/grounds/ground'+ worldParams.world +'.png" /></div>');
-			};
-			// On recupere les enfants de #grounds soit chaque bloc .ground
-			grounds = $('#grounds').children();
-			// On lance le defilement des blocs
-			intervalGame = setInterval(loop, vitesseGround);
-			// On scroll le background
-			intervalBackground = setInterval(bgscroll, bgScrollVars.speed);
-		};
-		createGround();
-
-		// Rafraichit la position de chaque bloc
-	  	function loop() {
-	  		// On parcourt chaque bloc
-	  		grounds.each(function () {
-	  			// On modifie la position de chaque bloc
-	  			$(this).animate({
-	            	left: parseInt($(this).css('left')) - 100 +"px"
-	        	}, (vitesseGround-20), 'linear', function () {
-	        		// Quand un bloc sort de l'écran on le repositionne a la fin
-	        		if ((parseInt($(this).css('left')) + 100) <= 0) {
-	        			$(this).css('left', (parseInt($(window).width()) + 100) +"px");
-	        			compteurGeneration.add();
-	        		}
-
-	        		// Tous les 10 blocs
-	        		if (compteurGeneration.get() == worldParams.difficulty) {
-	        			// Code a executer
-	        			// var aleaDegree = Math.round(Math.random()*5); // Determine le délai avant qu'un obstacle soit ajouté
-	        			var levelLength = Math.ceil($(window).width() / 100) + 2;
-	        			var i=0; i<levelLength; i++;
-						var translateX = i * 120; 
-	        			// récupérer la position de ce bloc pour ajouter un bloc html '.obstacle'
-						$("#obstacles").delay((Math.round(Math.random()*5))*1000).append('<div data-hitbox="true" class="obstacle" id="obsActive" style="bottom: '+ translateX +'px"><img border="0" alt="animated obstacle" src="img/obstacles/obstacle'+ worldParams.world +'.png" /></div>');
-	        			$('.obstacle').animate({
-	        				right: parseInt($(this).css('left')) - 100 +"px"
-	        			}, (vitesseGround*10), 'linear');
-	        			if($('#obsActive').css('right') >$(window).width()) {
-	        				$('.obstacle #obsActive').removeAttr('id');
-	        			}
-	        			compteurGeneration.reset();
-	        		}
-	        	});
-	  		});
-	    }
-
-	    // When tab/window is not active, JS execution pauses
-		(function() {
-	    	var time = 999999999, // temps de jeu à définir en ms
+	
+		(function() {  // When tab/window is not active, JS execution pauses
+	    	var time = 999999999, // Game time limit, important to set it high
 	        	delta = 50,
-	        	tid;
-	    	tid = setInterval(function() {
-	        	if ( window.blurred ) { 
-	        		$('.overlay').removeClass('hidden');
-	        		clearInterval(intervalGame);
-					clearInterval(intervalBackground);
-	        		return; 
-	        	}
-
+	        	tid = setInterval(function() {
+		        	if ( window.blurred ) { 
+		        		$('.overlay').removeClass('hidden');
+		        		clearInterval(intervalGame);
+						clearInterval(intervalBackground);
+		        		return; 
+		        	}
 	        	time -= delta;
 	        	if ( time <= 0 ) {
 	            	clearInterval(tid);
@@ -185,10 +125,10 @@ function gameStart() {
 		window.onblur = function() { window.blurred = true; };
 		window.onfocus = function() { window.blurred = false; };
 		$('.overlay').addClass('hidden');
-		$(document).ready(function() {
+		$(document).ready(function() {  // Dealing with game pause/resume (WIP)
 			$(document).keyup(function(touche){
 		    	var appui = touche.which || touche.keyCode;
-		    	if (appui == 32){
+		    	if (appui == 32){  // When "SPACE" is pressed
 		        	if ($('.overlay').hasClass('hidden')){
 						$('.overlay').removeClass('hidden');
 						clearInterval(intervalGame);
@@ -205,10 +145,54 @@ function gameStart() {
 		    	} 
 		    })
 		});
+
+		function bgscroll(){  // Scrolls the background infinitely, using background-position property
+		    bgScrollVars.current -= 1; // 1 pixel row at a time
+		    $('.parallax-layer').css("backgroundPosition", (bgScrollVars.direction == 'h') ? bgScrollVars.current+"px 0" : "0 " + bgScrollVars.current+"px");  // Moves the background with backgrond-position css properties
+		}
+
+		function createGround() {  // Get screen width, divide it by block width to know how many blocks are needed to fill the screen (+2 as margin)
+			levelLength = Math.ceil($(window).width() / 100) + 2;
+			for (var i=0; i<levelLength; i++) {
+				var translateX = i * 100; // block position (= order * block width)
+				$("#grounds").append('<div class="ground" style="left: '+ translateX +'px"><img border="0" alt="animated ground" src="img/grounds/ground'+ worldParams.world +'.png" /></div>');
+			};
+			grounds = $('#grounds').children();  // Get #grounds children, aka each .ground
+			intervalGame = setInterval(loop, vitesseGround);  // Start block movement
+			intervalBackground = setInterval(bgscroll, bgScrollVars.speed);  // Start background scrolling
+		};
+		createGround();
+
+		
+	  	function loop() {  // Refreshing ground blocks positions
+	  		grounds.each(function () {  // For each block
+	  			$(this).animate({  // translate to the left
+	            	left: parseInt($(this).css('left')) - 100 +"px"
+	        	}, (vitesseGround-20), 'linear', function () {
+	        		if ((parseInt($(this).css('left')) + 100) <= 0) {  // Once beyond the left screen border, the block is replaced on the right
+	        			$(this).css('left', (parseInt($(window).width()) + 100) +"px");
+	        			compteurGeneration.add();
+	        		}
+	        		if (compteurGeneration.get() == worldParams.difficulty) {  // When generations equals difficulty
+	        			var levelLength = Math.ceil($(window).width() / 100) + 2;
+	        			var i=0; i<levelLength; i++;
+						var translateX = i * 120; 
+	        			// A new obstacle is added to the game
+						$("#obstacles").append('<div data-hitbox="true" class="obstacle" id="obsActive" style="bottom: '+ translateX +'px"><img border="0" alt="animated obstacle" src="img/obstacles/obstacle'+ worldParams.world +'.png" /></div>');
+	        			$('.obstacle').animate({
+	        				right: parseInt($(this).css('left')) - 100 +"px"
+	        			}, (vitesseGround*10), 'linear');
+	        			if($('#obsActive').css('right') >$(window).width()) {
+	        				$('.obstacle #obsActive').removeAttr('id');
+	        			}
+	        			compteurGeneration.reset();
+	        		}
+	        	});
+	  		});
+	    }
 	});
 	$("#perso").stopTime().mouvMarcheDrt();
 } // END of gameStart()
-
 
 var etatPerso = true;
 function hitboxCheck() {
@@ -230,20 +214,19 @@ function hitboxCheck() {
 		left: $(window).width() - 72 - parseInt(obs.css('right')),
 	};
 	if(obsHitbox.left <= persoHitbox.right && obsHitbox.right >= persoHitbox.left){
-		if(persoHitbox.bottom <= obsHitbox.top) {  // Rajouter code de fin de jeu ici !
+		if(persoHitbox.bottom <= obsHitbox.top) {  // Code executed in case of collision (= defeat)
 			var etatPerso = false;
 			window.location.href = "dead.html";
 		} else {  // Code executed in case of dodge
 			obs.removeAttr('id');
 			worldParams.score = worldParams.score+10;
 			$("#scoreCounter").text(worldParams.score +' / '+ worldParams.level);
-			// Victory condition and events
-			if (worldParams.score >= worldParams.level) {
+			if (worldParams.score >= worldParams.level) {  // Victory condition and events
 				window.location.href = "victoires/victoire"+ worldParams.world +".html";
 			};
 		}
 	}
-	hitTimer = setTimeout(hitboxCheck, 500);
+	hitTimer = setTimeout(hitboxCheck, 500);  // hitboxCheck is cycled on a 0.5s basis
 }
 hitboxCheck();
 
