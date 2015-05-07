@@ -8,9 +8,6 @@
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 	<link rel="icon" type="image/png" href="img/favicon.png">
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-	<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
-	<script src="http://web.virtuousquare.com/wp-content/themes/default/tuto/stage/js/jquery-timers.js"></script>
-	<script src="scripts/site/scroll.js"></script>
 </head>
 <body>
 	<div id="site">
@@ -63,17 +60,17 @@
 
 					<div class="choose">
 						<div id="b">
-							<a href="#world" onclick="persoChoice=1" class="persoselect">
+							<a href="#world" onclick="worldParams.perso=1" class="persoselect">
 								<div class="blue"><span class="persoSb">Lagoon</span></div>
 							</a>
 						</div>
 						<div id="r">
-							<a href="#world" onclick="persoChoice=2" class="persoselect">
+							<a href="#world" onclick="worldParams.perso=2" class="persoselect">
 								<div class="red"><span class="persoSr">Roshe</span></div>
 							</a>
 						</div>
 						<div id="g">
-							<a href="#world" onclick="persoChoice=3" class="persoselect">
+							<a href="#world" onclick="worldParams.perso=3" class="persoselect">
 								<div class="green"><span class="persoSg">Poison</span></div>
 							</a>
 						</div>
@@ -91,7 +88,7 @@
 				</div>
 					<div id="chooseW">
 						<a href="#game" class="aW">
-							<div id="w1" class="worldselect" onclick="worldChoice=1;level=100;difficulty=12; gameStart()">
+							<div id="w1" class="worldselect" onclick="worldParams.world=1;worldParams.level=100;worldParams.difficulty=12; gameStart()">
 								<div class="world">
 									<div class="champ">
 										<p class="titleW">Training</p>
@@ -102,7 +99,7 @@
 							</div>
 						</a>
 						<a href="#game" class="aW">
-							<div id="w2" class="worldselect" onclick="worldChoice=2;level=120;difficulty=10; gameStart()">
+							<div id="w2" class="worldselect" onclick="worldParams.world=2;worldParams.level=120;worldParams.difficulty=10; gameStart()">
 								<div class="world">
 									<div class="champ">
 										<p class="titleW">Flyknit</p>
@@ -113,7 +110,7 @@
 							</div>
 						</a>
 						<a href="#game" class="aW">
-							<div id="w3" class="worldselect" onclick="worldChoice=3;level=160;difficulty=8; gameStart()">
+							<div id="w3" class="worldselect" onclick="worldParams.world=3;worldParams.level=160;worldParams.difficulty=8; gameStart()">
 								<div class="world">
 									<div class="champ">
 										<p class="titleW">Lunar</p>
@@ -124,7 +121,7 @@
 							</div>
 						</a>
 						<a href="#game" class="aW">
-							<div id="w4" class="worldselect" onclick="worldChoice=4;level=200;difficulty=6; gameStart()">
+							<div id="w4" class="worldselect" onclick="worldParams.world=4;worldParams.level=200;worldParams.difficulty=6; gameStart()">
 								<div class="world">
 									<div class="champ">
 										<p class="titleW">Mercurial</p>
@@ -179,7 +176,10 @@
 		    <div></div>
 		</div>
 	</div>
-
+	
+	<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+	<script src="http://web.virtuousquare.com/wp-content/themes/default/tuto/stage/js/jquery-timers.js"></script>
+	<script src="scripts/site/scroll.js"></script>
 	<script type="text/javascript" src="scripts/game.js"></script>
 </body>
 </html>
